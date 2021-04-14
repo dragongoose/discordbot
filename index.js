@@ -3,6 +3,9 @@ const path = require('path');
 const fetch = require('node-fetch');
 const config = require ('./config');
 const levelfunc = require('./utils/levelfunc');
+const config = require("./config.json")
+const Levels = require("discord-xp");
+
 
 const client = new Client({
     commandPrefix: '$',
