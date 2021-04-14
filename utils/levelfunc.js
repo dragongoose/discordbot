@@ -81,3 +81,8 @@ function checkLevel(level, message, user){
    
     }
   }
+
+module.exports = {
+    checkLevel,
+    levelRole
+}
