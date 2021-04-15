@@ -5,7 +5,8 @@ const Discord = require('discord.js');
 const canvacord = require('canvacord');
 const fs = require('fs');
 const { Database } = require("quickmongo");
-const db = new Database("mongodb+srv://dragon:tyler45asdf@cluster0.eroo8.mongodb.net/test");
+const config = require('../../config.json')
+const db = new Database(config.dburl);
 
 
 
