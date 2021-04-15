@@ -30,8 +30,11 @@ module.exports = class PollCommand extends Command {
             options,
             time
         }) {
+
             var emojiList = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟'];
             var optionsList = options.split(",");
+            if(optionsList.length >= 10){
+                return msg.channel.send('Cannot have more than 10 poll options!')       }
 
             var optionsText = "";
             for (var i = 0; i < optionsList.length; i++) {
