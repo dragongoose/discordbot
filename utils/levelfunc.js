@@ -1,3 +1,11 @@
+var hex = Math.floor( Math.random() * 0xFFFFFF );
+var result = "#" + hex.toString(16);
+
+
+var hex = Math.floor( Math.random() * 0xFFFFFF );
+var result = "#" + hex.toString(16);
+
+
 function checkLevel(level, message, user){
     console.log(level)
     if(level == undefined){
