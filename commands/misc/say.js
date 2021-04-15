@@ -20,9 +20,11 @@ module.exports = class SayCommand extends Command {
 		})
 	}
 	run(msg, { text }) {
+		
+		if (text.includes('<@')) return msg.reply('no');
 
-		if (text.indexOf('stupid', 'idiot', 'retard') >= 0) {
-			msg.say('yeah i know')
+		if (text == '@everyone') {
+			msg.reply('no')
 		} else {
 			msg.say(text)
 			msg.delete()
