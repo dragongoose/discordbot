@@ -3,7 +3,6 @@ var async = require('async');
 const Levels = require("discord-xp");
 const Discord = require('discord.js');
 const canvacord = require('canvacord');
-const fs = require('fs');
 const { Database } = require("quickmongo");
 const config = require('../../config.json')
 const db = new Database(config.dburl);

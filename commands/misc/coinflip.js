@@ -1,7 +1,5 @@
 const { Command } = require('discord.js-commando');
-const fetch = require('node-fetch');
 var async = require('async');
-const Discord = require('discord.js');
 
 module.exports = class CatCommand extends Command {
 	constructor(client) {

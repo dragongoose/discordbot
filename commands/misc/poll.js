@@ -1,5 +1,4 @@
 const { Command } = require('discord.js-commando');
-const { RichEmbed } = require('discord.js');
 const Discord = require('discord.js');
 
 module.exports = class PollCommand extends Command {
