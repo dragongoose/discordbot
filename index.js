@@ -9,7 +9,7 @@ const Levels = require("discord-xp");
 
 const client = new Client({
   commandPrefix: "$", //set bot command prefix
-  owner: config.ownerid, //set bot owner id
+  owner: parseInt(config.ownerid), //set bot owner id
 });
 
 //register command groups and disable commands
