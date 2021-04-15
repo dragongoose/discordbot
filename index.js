@@ -1,9 +1,8 @@
 const { Client }= require('discord.js-commando');
 const path = require('path');
 const fetch = require('node-fetch');
-const config = require ('./config');
+const config = require ('./config.json');
 const levelfunc = require('./utils/levelfunc');
-const config = require("./config.json")
 const Levels = require("discord-xp");
 
 
@@ -35,12 +34,10 @@ client.once('ready', () => {
     })
 });
 
-
-
-module.exports = client
-
-
 //Give a random ammount of XP every message.
+
+Levels.setURL(config.dburl);
+
 client.on("message", async (message) => {
     if (!message.guild) return;
     if (message.author.bot) return;
