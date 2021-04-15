@@ -14,7 +14,7 @@ module.exports = class CatCommand extends Command {
             guildOnly: true,
             args: [
                 {
-                    type: 'string',
+                    type: 'integer',
                     prompt: 'How many messages should I delete?',
                     key: 'ammount'
                 }
@@ -22,6 +22,9 @@ module.exports = class CatCommand extends Command {
 		})
 	}
    async run(msg, { ammount }) {
+    if(!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('No Perms!');
+
+
 	if(ammount <= 0) {
         return msg.channel.send('Ammount to clear must be greater than 0');
     } else {

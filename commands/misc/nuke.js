@@ -16,7 +16,7 @@ module.exports = class CatCommand extends Command {
 	}
    async run(msg) {
        
-	if(!msg.member.hasPermission('ADMINISTRATOR')) return message.reply('No Perms!');
+	if(!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('No Perms!');
 	const newChannel = await msg.channel.clone()
 	msg.channel.delete()
     }
