@@ -55,10 +55,6 @@ module.exports = class PollCommand extends Command {
                 for (var i = 0; i < optionsList.length; i++) {
                     reactionArray[i] = await message.react(emojiList[i]);
                 }
-                // Definitely use a 2d array here..
-                {
-
-                }
             });
     };
 }
