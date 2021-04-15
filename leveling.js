@@ -1,10 +1,10 @@
 const client = require("./index.js")
 const Levels = require("discord-xp");
-
+const config = require("./config.json")
 
 console.log('a?')
 
-Levels.setURL("mongodb+srv://dragon:tyler45asdf@cluster0.eroo8.mongodb.net/test");
+Levels.setURL(config.dburl);
 
 var hex = Math.floor( Math.random() * 0xFFFFFF );
 var result = "#" + hex.toString(16);
