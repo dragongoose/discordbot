@@ -59,7 +59,7 @@ if(city.length > 5) {
                    { name: 'Max Temp  ', value: `666°F`, inline: true  },
                    { name: 'Lowest Temp  ', value: `666°F`, inline: true },
                    { name: 'Humidity', value: `${Math.floor(Math.random() * 100)}%`, inline: true},
-               	   { name: 'Pressure', value: `${Math.floor(Math.random() * 2000)} hPa`, inline: true},
+               	   { name: 'Pressure', value: `14.3M hPa`, inline: true},
                    { name: 'Visibility', value: `${Math.floor(Math.random() * 10)} Km`, inline: true},
                    { name: 'Wind Speed  ', value: `${Math.floor(Math.random() * 100)} MPH`, inline: true },
                    { name: 'Wind Direction  ', value: `${Math.floor(Math.random() * 360)}° ${degToCompass(Math.floor(Math.random() * 360))}`, inline: true },
