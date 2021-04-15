@@ -18,6 +18,8 @@ Once you create config.json, you are going to need to add these entries
 }
 
 ```
+After you all all of the information needed into config.json, you can run the bot by doing `node index` in the projects directory.
+
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
