@@ -6,18 +6,18 @@ const Discord = require('discord.js');
 
 
 module.exports = class SayCommand extends Command {
-	constructor(client) {
-		super(client, {
-			name: 'leaderboard',
-			aliases: ['ranking'],
-			group: 'ranking',
-			memberName: 'leaderboard',
-			description: 'shows leaderboard of server.',
+    constructor(client) {
+        super(client, {
+            name: 'leaderboard',
+            aliases: ['ranking'],
+            group: 'ranking',
+            memberName: 'leaderboard',
+            description: 'shows leaderboard of server.',
             guildOnly: true,
-		})
-	}
+        })
+    }
     async run(msg) {
-        
+
         const rawLeaderboard = await Levels.fetchLeaderboard(msg.guild.id, 10); // We grab top 10 users with most xp in the current server.
         if (rawLeaderboard.length < 1) return reply("Nobody's in leaderboard yet.");
         const leaderboard = await Levels.computeLeaderboard(this.client, rawLeaderboard, true); // We process the leaderboard.

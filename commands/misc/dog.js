@@ -11,18 +11,19 @@ module.exports = class DogCommand extends Command {
 			group: 'misc',
 			memberName: 'dog',
 			description: 'random picture of a dpg.',
-            guildOnly: true,
+			guildOnly: true,
 		})
 	}
-   async run(msg) {
-    const { link } =  await fetch('https://some-random-api.ml/img/dog').then(response => response.json());    
-	
-	const dogEmbed = new Discord.MessageEmbed()
-		.setColor('#0099ff')
-		.setTitle('dog')
-		.setImage(link)
-		.setFooter(`dog requested by ${msg.member.user.tag}`)
+	async run(msg) {
+		
+		const { link } = await fetch('https://some-random-api.ml/img/dog').then(response => response.json());
 
-	msg.channel.send(dogEmbed)
-    }
+		const dogEmbed = new Discord.MessageEmbed()
+			.setColor('#0099ff')
+			.setTitle('dog')
+			.setImage(link)
+			.setFooter(`dog requested by ${msg.member.user.tag}`)
+
+		msg.channel.send(dogEmbed)
+	}
 };

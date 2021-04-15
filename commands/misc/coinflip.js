@@ -13,16 +13,17 @@ module.exports = class CatCommand extends Command {
 			description: 'flips a coin.',
 		})
 	}
-   async run(msg) {
+	
+	async run(msg) {
 
-       var number = Math.round(Math.random());
-       if(number == '1') {
-           var head = 'Heads!'
-       } else {
-       if(number == '0')
-           var head = 'Tails!'
-       }
-          
-	   msg.channel.send(head)
-    }
+		var number = Math.round(Math.random());
+		if (number == '1') {
+			var head = 'Heads!'
+		} else {
+			if (number == '0')
+				var head = 'Tails!'
+		}
+
+		msg.channel.send(head)
+	}
 };

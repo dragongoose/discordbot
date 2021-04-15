@@ -9,24 +9,24 @@ module.exports = class SayCommand extends Command {
 			group: 'misc',
 			memberName: 'say',
 			description: 'repeats what a player says.',
-            guildOnly: true,
-            args: [
-                {
-                    type:"string",
-                    prompt:"what would you like to say",
-                    key:"text",
-                }
-            ]
+			guildOnly: true,
+			args: [
+				{
+					type: "string",
+					prompt: "what would you like to say",
+					key: "text",
+				}
+			]
 		})
 	}
-    run(msg, { text }) {
-        
-        if (text.indexOf('stupid', 'idiot', 'retard') >= 0) { 
-  			msg.say('yeah i know')
-		} else { 
-  			msg.say(text)
-            msg.delete()
+	run(msg, { text }) {
+
+		if (text.indexOf('stupid', 'idiot', 'retard') >= 0) {
+			msg.say('yeah i know')
+		} else {
+			msg.say(text)
+			msg.delete()
 		}
-        
-    }
+
+	}
 };
