@@ -14,7 +14,8 @@ Once you create config.json, you are going to need to add these entries
   "token": "DISCORD_TOKEN",
   "dburl": "MONGODB_URL",
   "errorwebhook": "WEBHOOK_URL",
-  "openweathermap": "OPENWEATHERMAP_TOKEN"
+  "openweathermap": "OPENWEATHERMAP_TOKEN",
+  "ownerid": "OWNER_ID"
 }
 
 ```
