@@ -55,7 +55,7 @@ client.on("message", async (message) => {
 
   if (hasLeveledUp) {
     const user = await Levels.fetch(message.author.id, message.guild.id); //get user level
-    message.channel.send(`${message.author}, congratulations! You have leveled up to **${user.level}**. :tada:`); //send message when user levels up
+    message.channel.send(`${message.author.tag}, congratulations! You have leveled up to **${user.level}**. :tada:`); //send message when user levels up
     levelfunc.checkLevel(user.level, message, message.author.id); //nake sure user has the correct roles
     levelfunc.levelRole(user.level, message, message.author.id); //remove previous level role and give new one
   }
