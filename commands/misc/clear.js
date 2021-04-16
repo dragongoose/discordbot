@@ -38,10 +38,10 @@ module.exports = class CatCommand extends Command {
                 return msg.channel.messages.fetch({ limit: ammount })
                     .then(msgs => msg.channel.bulkDelete(msgs))
                     .then(msgs => msg.reply(`Purge deleted ${msgs.size} message(s)`))
-                    .catch(console.error);
-            } else {
-                msg.reply('Can only clear in text channels.')
-            }
+                    .catch(e => {if(e == "DiscordAPIError: You can only bulk delete messages that are under 14 days old."){msg.channel.send('I can only delete messages under 14 days old.')}})
+        } else {
+            msg.reply('Can only clear in text channels.')
         }
     }
+}
 };
