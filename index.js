@@ -17,6 +17,7 @@ client.registry
     ["misc", "Misc"],
     ["weather", "Weather"],
     ["ranking", "Ranking"],
+    ["jack", "Jack"],
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({
