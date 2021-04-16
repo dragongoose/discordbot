@@ -38,6 +38,13 @@ module.exports = class SayCommand extends Command {
             dispatcher.on('finish', () => {
                 console.log('Finished playing!');
                 msg.member.voice.channel.leave()
+                fs.unlink(`./commands/jack/ttsutil/${randomnum}tts.mp3`, function (err) {
+                    if (err) {
+                        throw err
+                    } else {
+                        console.log("Successfully deleted the file.")
+                    }
+                })
 
             });
 
@@ -46,13 +53,7 @@ module.exports = class SayCommand extends Command {
         }
 
 
-        fs.unlink(`./commands/jack/ttsutil/${randomnum}tts.mp3`, function(err) {
-            if (err) {
-              throw err
-            } else {
-              console.log("Successfully deleted the file.")
-            }
-          })
+
 
     }
 };
