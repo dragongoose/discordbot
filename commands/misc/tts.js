@@ -23,26 +23,35 @@ module.exports = class SayCommand extends Command {
     }
     async run(msg, { text }) {
 
-        if (msg.member.voice.channel) {
-            
-            var gtts = require('node-gtts')('en');
+        const glitch = [".", ",", ";", ":"]// these characters alone return an error when trying to speak
 
+        //protect agains errors when typing characters in glitch alone.
+        if (text.length == 1) {
+            if (glitch.includes(text)) {
+                return msg.channel.send('no')
+            }
+        }
+
+
+        //check if user is in a vc
+        if (msg.member.voice.channel) {
+
+            var gtts = require('node-gtts')('en');
             const randomnum = Math.floor(Math.random() * 100);
             const connection = await msg.member.voice.channel.join();
 
-            gtts.save(`./commands/misc/tts/${randomnum}tts.mp3`, text, function() {
-
+            gtts.save(`./commands/misc/tts/${randomnum}tts.mp3`, text, function () {
                 const dispatcher = connection.play(`./commands/misc/tts/${randomnum}tts.mp3`);
 
-                dispatcher.on('finish', () => { 
-                    console.log('Finished playing!'); 
-                }); 
+                dispatcher.on('finish', () => {
+                    console.log('Finished playing!');
+                });
             })
 
         } else {
 
             msg.reply('You need to join a voice channel first!');
-            
+
         }
 
     }
