@@ -1,7 +1,4 @@
 const { Command } = require('discord.js-commando');
-const async = require('async');
-const fetch = require('node-fetch');
-const gTTS = require('gtts');
 const fs = require("fs")
 
 
@@ -26,47 +23,27 @@ module.exports = class SayCommand extends Command {
     }
     async run(msg, { text }) {
 
-        var gtts = new gTTS(text, 'en');
-        const randomnum = Math.floor(Math.random() * 100); //Make a random number
+        if (msg.member.voice.channel) {
+            
+            var gtts = require('node-gtts')('en');
 
-        gtts.save('./commands/misc/tts/' + randomnum + 'tts.mp3', function (err, result) { // Create a .mp3 for what the input was
-            if (err) { throw new Error(err); }
-            console.log("Text to speech converted!");
-        });
-
-        if (msg.member.voice.channel) { // check is user is in a VC, if not, give a error
-
-            //set variables
+            const randomnum = Math.floor(Math.random() * 100);
             const connection = await msg.member.voice.channel.join();
-            const dispatcher = connection.play(`./commands/misc/tts/${randomnum}tts.mp3`);
 
-            //When done playing, Delete the old file and wait 5 mins before leaving.
-            dispatcher.on('finish', () => {
+            gtts.save(`./commands/misc/tts/${randomnum}tts.mp3`, text, function() {
 
+                const dispatcher = connection.play(`./commands/misc/tts/${randomnum}tts.mp3`);
 
-                //log that the tts finished.
-                console.log('Finished playing!');
-
-
-
-                //Delete file
-                fs.unlink(`./commands/misc/tts/${randomnum}tts.mp3`, function (err) {
-                    if (err) {
-                        throw err
-                    } else {
-                        console.log("Successfully deleted the file.")
-                    }
-                })
-            });
+                dispatcher.on('finish', () => { 
+                    console.log('Finished playing!'); 
+                }); 
+            })
 
         } else {
 
-            msg.channel.send('You need to be in a voice channel')
-
+            msg.reply('You need to join a voice channel first!');
+            
         }
-
-
-
 
     }
 };
