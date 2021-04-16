@@ -27,22 +27,34 @@ module.exports = class SayCommand extends Command {
     async run(msg, { text }) {
 
         var gtts = new gTTS(text, 'en');
+        const randomnum = Math.floor(Math.random() * 100); //Make a random number
 
-        const randomnum = Math.floor(Math.random() * 100);
-
-        gtts.save('./commands/misc/tts/' + randomnum + 'tts.mp3', function (err, result) {
+        gtts.save('./commands/misc/tts/' + randomnum + 'tts.mp3', function (err, result) { // Create a .mp3 for what the input was
             if (err) { throw new Error(err); }
             console.log("Text to speech converted!");
         });
 
-        if (msg.member.voice.channel) {
+        if (msg.member.voice.channel) { // check is user is in a VC, if not, give a error
+
+            //set variables
             const connection = await msg.member.voice.channel.join();
             const dispatcher = connection.play(`./commands/misc/tts/${randomnum}tts.mp3`);
 
+            //When done playing, Delete the old file and wait 5 mins before leaving.
             dispatcher.on('finish', () => {
-                console.log('Finished playing!');
-                msg.member.voice.channel.leave()
 
+
+                //log that the tts finished.
+                console.log('Finished playing!');
+
+
+                //wait 5 mins before leaving
+                setTimeout(function () {
+                    msg.member.voice.channel.leave()
+                    msg.channel.send('I left the VC for being AFK')
+                }, 300000)
+
+                //Delete file
                 fs.unlink(`./commands/misc/tts/${randomnum}tts.mp3`, function (err) {
                     if (err) {
                         throw err
@@ -50,11 +62,12 @@ module.exports = class SayCommand extends Command {
                         console.log("Successfully deleted the file.")
                     }
                 })
-
             });
 
         } else {
+
             msg.channel.send('You need to be in a voice channel')
+
         }
 
 
