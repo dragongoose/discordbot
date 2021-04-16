@@ -17,3 +17,7 @@ node_modules
 # Ignore config.json
 
 config.json
+
+# ignore this
+
+commands/jack/cum.js
