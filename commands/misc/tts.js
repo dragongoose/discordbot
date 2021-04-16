@@ -48,11 +48,6 @@ module.exports = class SayCommand extends Command {
                 console.log('Finished playing!');
 
 
-                //wait 5 mins before leaving
-                setTimeout(function () {
-                    msg.member.voice.channel.leave()
-                    msg.channel.send('I left the VC for being AFK')
-                }, 300000)
 
                 //Delete file
                 fs.unlink(`./commands/misc/tts/${randomnum}tts.mp3`, function (err) {
