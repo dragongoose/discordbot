@@ -15,11 +15,11 @@ module.exports = class SayCommand extends Command {
 		})
 	}
 	async run(msg) {
-        
-        let asd = await fetch('https://random-word-api.herokuapp.com/word?number=10').then(response => response.text());
-        const data = eval(asd)
 
-        msg.channel.send(data.join(" "))
+		let asd = await fetch('https://random-word-api.herokuapp.com/word?number=10').then(response => response.text());
+		const data = eval(asd)
+
+		msg.channel.send(data.join(" "))
 
 
 	}
