@@ -26,7 +26,7 @@ After you install dependencies, you are ready to start the bot!
 You can start the bot by running `node index` in the projects directory.
 
 ## Features
-Currently, the bot can:
+### Currently, the bot can:
 
 SOUND/MUSIC
 * Play Spotify and Youtube videos `$play`
