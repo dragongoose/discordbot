@@ -52,7 +52,7 @@ RANKING/LEVELING
 * Show leaderboard for the server `$leaderboard`
 * Shand progress bar color on the rank command (Will have more uses in the future)`$color`
 
-Jack (Command that my friend wated to add)
+Jack (Commands that my friend wanted to add)
 * Say 10 random words `$words`
 
 ## Contributing
