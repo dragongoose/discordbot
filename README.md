@@ -31,7 +31,7 @@ You can start the bot by running `node index` in the projects directory.
 SOUND/MUSIC
 * Play Spotify and Youtube videos `$play`
 * Search Top 3 youtube search results `$search`
-* Pause, Resume, Time, Volume `$stop, $resume, $time, $volume`
+* Pause, Resume, Show time left, Set the volume `$stop, $resume, $time, $volume`
 
 WEATHER
 * Show the current weather for a City or Zip code (USA only) `$weather`
