@@ -27,6 +27,7 @@ You can start the bot by running `node index` in the projects directory.
 
 ## Features
 Currently, the bot can:
+
 SOUND/MUSIC
 * Play Spotify and Youtube videos `$play`
 * Search Top 3 youtube search results `$search`
