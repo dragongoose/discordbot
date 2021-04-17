@@ -20,11 +20,18 @@ module.exports = class SayCommand extends Command {
         const arg = msg.content.trim().split(/ +/);
         const text = arg[1]
 
+        if (text === undefined) {
+            return msg.channel.send('You need to give me something to play!');
+        }
+
+        const messageedit = await msg.channel.send('Searching...');
+
         //define variables
         const tac = "" //make global
         const info = ""//make global
         const connection = await msg.member.voice.channel.join();
         var dispatcher = connection.play(ytdl(text, { filter: 'audioonly' }), { volume: 0.5 });
+
 
         //check if user is in a vc
         if (msg.member.voice.channel) {
@@ -46,27 +53,34 @@ module.exports = class SayCommand extends Command {
 
                     const tac = await ytdl.getBasicInfo(ser.items["0"].url).then(a => { return JSON.stringify(a) })
                     const info = JSON.parse(tac)
+                    const song = {
+                        "title": info.videoDetails.title,
+                        "length": info.videoDetails.lengthSeconds
+                    }
 
-                    module.exports.time = info.videoDetails.lengthSeconds;
+                    module.exports.time = song.length;
+                    module.exports.song = song;
+
 
                     const pollembed = new Discord.MessageEmbed()
-                        .setDescription(`**Now playing | [${info.videoDetails.title}](${ser.items["0"].url})**`)
+                        .setDescription(`**Now playing | [${song.title}](${ser.items["0"].url})**`)
                         .addFields(
                             { name: 'Requested by', value: msg.author.tag, inline: true },
-                            { name: 'Length', value: new Date(info.videoDetails.lengthSeconds * 1000).toISOString().substr(11, 8), inline: true },
+                            { name: 'Length', value: new Date(song.length * 1000).toISOString().substr(11, 8), inline: true },
 
                         )
                         .setFooter(`Thanks for using me!`)
                         .setColor(0xD53C55) // Green: 0x00AE86
                         .setTimestamp();
 
-                    msg.channel.send(pollembed);
+                    messageedit.edit(pollembed);
 
                     module.exports.dispatcher = dispatcher;
+
                 } catch (e) {
 
                     console.log(e)
-                    msg.channel.send('Unexpected error')
+                    messageedit.edit('Unexpected error')
 
                 }
 
@@ -74,25 +88,31 @@ module.exports = class SayCommand extends Command {
                 try {
                     const tac = await ytdl.getBasicInfo(text).then(a => { return JSON.stringify(a) })
                     const info = JSON.parse(tac)
+                    const song = {
+                        "title": info.videoDetails.title,
+                        "length": info.videoDetails.lengthSeconds
+                    }
 
-                    module.exports.time = info.videoDetails.lengthSeconds;
+                    module.exports.time = song.length;
+                    module.exports.song = song;
 
                     const pollembed = new Discord.MessageEmbed()
-                        .setDescription(`**Now playing | [${info.videoDetails.title}](${text})**`)
+                        .setDescription(`**Now playing | [${song.title}](${text})**`)
                         .addFields(
                             { name: 'Requested by', value: msg.author.tag, inline: true },
-                            { name: 'Length', value: new Date(info.videoDetails.lengthSeconds * 1000).toISOString().substr(11, 8), inline: true },
+                            { name: 'Length', value: new Date(song.length * 1000).toISOString().substr(11, 8), inline: true },
 
                         )
+
                         .setFooter(`Thanks for using me!`)
                         .setColor(0xD53C55) // Green: 0x00AE86
                         .setTimestamp();
 
-                    msg.channel.send(pollembed);
+                    messageedit.edit(pollembed);
                 } catch (e) {
 
                     console.log(e)
-                    msg.channel.send('Unexpected error')
+                    messageedit.edit('Unexpected error')
 
                 }
 

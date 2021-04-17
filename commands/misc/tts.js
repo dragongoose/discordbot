@@ -23,7 +23,7 @@ module.exports = class SayCommand extends Command {
     }
     async run(msg, { text }) {
 
-        const glitch = [".", ",", ";", ":"]// these characters alone return an error when trying to speak
+        const glitch = [".", ",", ";", ":", "[", "]"]// these characters alone return an error when trying to speak
 
         //protect agains errors when typing characters in glitch alone.
         if (text.length == 1) {
@@ -40,7 +40,7 @@ module.exports = class SayCommand extends Command {
             const randomnum = Math.floor(Math.random() * 100);
             const connection = await msg.member.voice.channel.join();
 
-            gtts.save(`./commands/misc/tts/${randomnum}tts.mp3`, text, function () {
+            gtts.save(`./commands/misc/tts/${randomnum}tts.mp3`, String(text), function () {
                 const dispatcher = connection.play(`./commands/misc/tts/${randomnum}tts.mp3`);
 
                 dispatcher.on('finish', () => {
