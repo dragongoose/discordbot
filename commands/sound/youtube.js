@@ -14,16 +14,11 @@ module.exports = class SayCommand extends Command {
             memberName: 'play',
             description: 'Plays a file, youtube, spotify, and more!',
             guildOnly: true,
-            args: [
-                {
-                    type: "string",
-                    prompt: "what would you like to say",
-                    key: "text",
-                }
-            ]
         })
     }
-    async run(msg, { text }) {
+    async run(msg) {
+        const arg = msg.content.trim().split(/ +/);
+        const text = arg[1]
 
         //define variables
         const tac = "" //make global
@@ -72,7 +67,7 @@ module.exports = class SayCommand extends Command {
 
                     console.log(e)
                     msg.channel.send('Unexpected error')
-                    
+
                 }
 
             } else {
