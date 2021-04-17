@@ -26,6 +26,8 @@ module.exports = class SayCommand extends Command {
     async run(msg, { text }) {
 
         //define variables
+        const tac = "" //make global
+        const info = ""//make global
         const connection = await msg.member.voice.channel.join();
         var dispatcher = connection.play(ytdl(text, { filter: 'audioonly' }), { volume: 0.5 });
 
@@ -37,49 +39,67 @@ module.exports = class SayCommand extends Command {
             if (!ytdl.validateURL(text)) var url = 0;
 
             if (url == 0) {
-                const searchResults = await ytsr(text, { limit: 1 });
-                var search = JSON.stringify(searchResults);
-                var ser = JSON.parse(search)
-                const videos = ser.items
-                if (videos.length == 0) return msg.channel.send('No results')
 
-                var dispatcher = connection.play(ytdl(ser.items["0"].url, { filter: 'audioonly' }), { volume: 0.5 });
+                try {
+                    const searchResults = await ytsr(text, { limit: 1 });
+                    var search = JSON.stringify(searchResults);
+                    var ser = JSON.parse(search)
+                    const videos = ser.items
+                    if (videos.length == 0) return msg.channel.send('No results')
 
-                const tac = await ytdl.getBasicInfo(ser.items["0"].url).then(a => { return JSON.stringify(a) })
-                const info = JSON.parse(tac)
+                    var dispatcher = connection.play(ytdl(ser.items["0"].url, { filter: 'audioonly' }), { volume: 0.5 });
 
-                const pollembed = new Discord.MessageEmbed()
-                    .setDescription(`**Now playing | [${info.videoDetails.title}](${ser.items["0"].url})**`)
-                    .addFields(
-                        { name: 'Requested by', value: msg.author.tag, inline: true },
-                        { name: 'Length', value: new Date(info.videoDetails.lengthSeconds * 1000).toISOString().substr(11, 8), inline: true },
-                        
-                    )
-                    .setFooter(`Thanks for using me!`)
-                    .setColor(0xD53C55) // Green: 0x00AE86
-                    .setTimestamp();
+                    const tac = await ytdl.getBasicInfo(ser.items["0"].url).then(a => { return JSON.stringify(a) })
+                    const info = JSON.parse(tac)
 
-                msg.channel.send(pollembed);
+                    module.exports.time = info.videoDetails.lengthSeconds;
 
-                module.exports.dispatcher = dispatcher;
+                    const pollembed = new Discord.MessageEmbed()
+                        .setDescription(`**Now playing | [${info.videoDetails.title}](${ser.items["0"].url})**`)
+                        .addFields(
+                            { name: 'Requested by', value: msg.author.tag, inline: true },
+                            { name: 'Length', value: new Date(info.videoDetails.lengthSeconds * 1000).toISOString().substr(11, 8), inline: true },
+
+                        )
+                        .setFooter(`Thanks for using me!`)
+                        .setColor(0xD53C55) // Green: 0x00AE86
+                        .setTimestamp();
+
+                    msg.channel.send(pollembed);
+
+                    module.exports.dispatcher = dispatcher;
+                } catch (e) {
+
+                    console.log(e)
+                    msg.channel.send('Unexpected error')
+                    
+                }
 
             } else {
+                try {
+                    const tac = await ytdl.getBasicInfo(text).then(a => { return JSON.stringify(a) })
+                    const info = JSON.parse(tac)
 
-                const tac = await ytdl.getBasicInfo(text).then(a => { return JSON.stringify(a) })
-                const info = JSON.parse(tac)
+                    module.exports.time = info.videoDetails.lengthSeconds;
 
-                const pollembed = new Discord.MessageEmbed()
-                    .setDescription(`**Now playing | [${info.videoDetails.title}](${text})**`)
-                    .addFields(
-                        { name: 'Requested by', value: msg.author.tag, inline: true },
-                        { name: 'Length', value: new Date(info.videoDetails.lengthSeconds * 1000).toISOString().substr(11, 8), inline: true },
-                        
-                    )
-                    .setFooter(`Thanks for using me!`)
-                    .setColor(0xD53C55) // Green: 0x00AE86
-                    .setTimestamp();
+                    const pollembed = new Discord.MessageEmbed()
+                        .setDescription(`**Now playing | [${info.videoDetails.title}](${text})**`)
+                        .addFields(
+                            { name: 'Requested by', value: msg.author.tag, inline: true },
+                            { name: 'Length', value: new Date(info.videoDetails.lengthSeconds * 1000).toISOString().substr(11, 8), inline: true },
 
-                msg.channel.send(pollembed);
+                        )
+                        .setFooter(`Thanks for using me!`)
+                        .setColor(0xD53C55) // Green: 0x00AE86
+                        .setTimestamp();
+
+                    msg.channel.send(pollembed);
+                } catch (e) {
+
+                    console.log(e)
+                    msg.channel.send('Unexpected error')
+
+                }
 
             }
 
@@ -89,10 +109,9 @@ module.exports = class SayCommand extends Command {
 
             });
 
-            //dispatcher.on("finish", end => {
-            //console.log("left channel");
-            //msg.member.voice.channel.l();
-            //});
+            dispatcher.on("finish", end => {
+                console.log("Ended");
+            });
 
         } else {
 
