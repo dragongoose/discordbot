@@ -11,18 +11,19 @@ module.exports = class SayCommand extends Command {
             memberName: 'volume',
             description: 'Change volume.',
             guildOnly: true,
-            args: [
-                {
-                    type: "string",
-                    prompt: "Volume?",
-                    key: "text",
-                }
-            ]
         })
     }
-    run(msg, { text }) {
+    run(msg) {
 
-        const vol = text / 100
+        const text = msg.content.trim().split(/ +/);
+
+        console.log(`TEXT ${text[1]}`)
+
+        if (text[1] === undefined) {
+            return msg.channel.send(`The current volume is ${dis.dispatcher.volume * 100}% `);
+        }
+
+        const vol = text[1] / 100
 
         try {
             dis.dispatcher.setVolume(vol);
