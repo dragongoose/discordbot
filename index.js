@@ -18,6 +18,7 @@ client.registry
     ["weather", "Weather"],
     ["ranking", "Ranking"],
     ["jack", "Jack"],
+    ["sound", "Sound"]
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({
@@ -27,6 +28,7 @@ client.registry
   })
   .registerCommandsIn(path.join(__dirname, "commands"));
 
+//penis
 
 //Run when ready
 client.once("ready", () => {
@@ -48,7 +50,8 @@ Levels.setURL(config.dburl); //Set mongodb url for discord-xp
 
 client.on("message", async (message) => {
   if (!message.guild) return; //ignore if message wasnt in a server
-  if (message.author.bot) return; //ignore if message was from a bot
+  //if (message.author.bot) return; //ignore if message was from a bot
+
 
   const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Random number for xp
   const hasLeveledUp = await Levels.appendXp(message.author.id, message.guild.id, randomAmountOfXp); //give the random ammount of xp
