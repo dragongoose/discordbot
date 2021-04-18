@@ -1,5 +1,7 @@
 const { Command } = require('discord.js-commando');
 const dis = require('./youtube.js');
+const progressbar = require('../../utils/progressbar.js')
+const Discord = require('discord.js')
 
 module.exports = class SayCommand extends Command {
     constructor(client) {
@@ -16,14 +18,35 @@ module.exports = class SayCommand extends Command {
         try {
             const time = dis.dispatcher.streamTime;
             const timetosecond = time / 1000
-            //const realtime = new Date(timetosecond * 1000).toISOString().substr(11, 8)
-            const timeleft = dis.time - timetosecond 
+            const timeleft = dis.song.length - timetosecond
 
-            msg.channel.send(new Date(timeleft * 1000).toISOString().substr(11, 8))
+            var timeone = Math.round(timeleft)// time elapsed
+            var timetwo = dis.song.length// total time 
+
+            let endTime = timetwo
+            let startTime = 0
+            let now = timeone
+            let totalTime = endTime - startTime;
+            let progress = now - startTime;
+            let percentage = 100 - ((progress / totalTime) * 100);
+
+            const embed = new Discord.MessageEmbed()
+                .setTitle('Current time')
+                .setDescription(`**${new Date(timeone * 1000).toISOString().substr(11, 8)} ${progressbar.progress(Math.round(percentage), '◽')} ${new Date(timetwo * 1000).toISOString().substr(11, 8)}**`)
+                .setFooter(`Thanks for using me!`)
+                .setColor(0xD53C55) // Green: 0x00AE86
+                .setTimestamp();
+
+            if (JSON.stringify(dis.connection.speaking) == 0) {
+                embed.setDescription(`**${new Date(timeone * 1000).toISOString().substr(11, 8)} ${progressbar.progress(Math.round(percentage), '⏸️')} ${new Date(timetwo * 1000).toISOString().substr(11, 8)}**`)
+            }
+
+            msg.channel.send(embed)
+
 
         } catch (e) {
             console.log(e)
-            if (e == "TypeError: Cannot read property 'streamTime' of undefined"){
+            if (e == "TypeError: Cannot read property 'streamTime' of undefined") {
                 msg.channel.send('Nothing is playing!')
             }
         }
