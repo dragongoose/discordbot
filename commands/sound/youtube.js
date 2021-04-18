@@ -26,11 +26,15 @@ module.exports = class SayCommand extends Command {
 
         const messageedit = await msg.channel.send('Searching...');
 
-        //define variables
-        const tac = "" //make global
-        const info = ""//make global
-        const connection = await msg.member.voice.channel.join();
-        var dispatcher = connection.play(ytdl(text, { filter: 'audioonly' }), { volume: 0.5 });
+        try {
+            //define variables
+            const tac = "" //make global
+            const info = ""//make global
+            const connection = await msg.member.voice.channel.join();
+            var dispatcher = connection.play(ytdl(text, { filter: 'audioonly' }), { volume: 0.5 });
+        } catch (E) {
+            return msg.channel.send('An unexpected error occured');
+        }
 
 
         //check if user is in a vc
@@ -58,8 +62,6 @@ module.exports = class SayCommand extends Command {
                         "length": info.videoDetails.lengthSeconds
                     }
 
-                    module.exports.time = song.length;
-                    module.exports.song = song;
 
 
                     const pollembed = new Discord.MessageEmbed()
@@ -75,7 +77,9 @@ module.exports = class SayCommand extends Command {
 
                     messageedit.edit(pollembed);
 
-                    module.exports.dispatcher = dispatcher;
+                    module.exports.song = song;
+                    module.exports.connection = connection;
+
 
                 } catch (e) {
 
@@ -93,8 +97,10 @@ module.exports = class SayCommand extends Command {
                         "length": info.videoDetails.lengthSeconds
                     }
 
-                    module.exports.time = song.length;
+                    module.exports.dispatcher = dispatcher;
                     module.exports.song = song;
+                    module.exports.connection = connection;
+
 
                     const pollembed = new Discord.MessageEmbed()
                         .setDescription(`**Now playing | [${song.title}](${text})**`)
