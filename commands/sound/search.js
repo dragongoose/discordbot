@@ -19,6 +19,10 @@ module.exports = class SayCommand extends Command {
 
         const text = msg.content.trim().split(/ +/);
 
+        if(text[1] === undefined){
+            return message.channel.send('You need to include a search query!');
+        }
+
         var message = await msg.channel.send('Searching')
 
         const searchResults = await ytsr(text[1], { limit: 3 });
@@ -31,7 +35,7 @@ module.exports = class SayCommand extends Command {
             .setColor('#FF0000')
             .setTitle(`${videos.length} results!`)
             .setThumbnail('https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/YouTube_Logo_2017.svg/1280px-YouTube_Logo_2017.svg.png')
-            .setFooter(`Thanks for using me!`)
+            .setFooter(`Thanks for using me!`, msg.author.avatarURL({ format: 'png' }))
             .setTimestamp();
 
         for (let i = 0; i <= videos.length - 1; i++) {
