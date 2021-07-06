@@ -28,11 +28,6 @@ You can start the bot by running `node index` in the projects directory.
 ## Features
 ### Currently, the bot can:
 
-SOUND/MUSIC
-* Play Spotify and Youtube videos `$play`
-* Search Top 3 youtube search results `$search`
-* Pause, Resume, Show time left, Set the volume `$stop, $resume, $time, $volume`
-
 WEATHER
 * Show the current weather for a City or Zip code (USA only) `$weather`
 
@@ -43,7 +38,6 @@ MISC
 * Send this github repo `$github`
 * Show API and Bot latency `$ping`
 * Make a poll `$poll`
-* TTS in a voice channel (Experimental) `$tts`
 * Say anything the user wants it to `$say`
 * Flip a coin `$coinflip`
 
