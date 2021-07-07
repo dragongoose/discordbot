@@ -11,6 +11,7 @@
     "discord.js-pagination": "^1.0.3",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.3.0",
+    "lavalink": "^2.11.0",
     "mongoose": "^5.12.3",
     "node-fetch": "^2.6.1",
     "node-gtts": "^2.0.2",
