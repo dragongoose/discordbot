@@ -22,7 +22,6 @@ client.registry
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({
-    eval: false,
     unknownCommand: false,
     ping: false,
   })
@@ -50,7 +49,7 @@ Levels.setURL(config.dburl); //Set mongodb url for discord-xp
 
 client.on("message", async (message) => {
   if (!message.guild) return; //ignore if message wasnt in a server
-  //if (message.author.bot) return; //ignore if message was from a bot
+  if (message.author.bot) return; //ignore if message was from a bot
 
 
   const randomAmountOfXp = Math.floor(Math.random() * 29) + 1; // Random number for xp
