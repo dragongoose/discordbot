@@ -84,6 +84,22 @@ module.exports = class SayCommand extends Command {
 
             toedit.edit("`" + res + "`")
 
+            //log upload to db
+            const { Database } = require("quickmongo");
+            const db = new Database(config.dburl);
+
+            try {
+                if(res.includes(`${config.domain}/uploads`)) {
+                    db.on("ready", () => {
+                        db.push(`${msg.author.id}.uploads`, res)
+                    })    
+                }
+            } catch (e) {
+                toedit.edit('Database Error, Try again later.')
+            }
+
+
+
         
 
         } catch (e) {
