@@ -15,10 +15,13 @@ Once you create config.json, you are going to need to add these entries
   "dburl": "MONGODB_URL",
   "errorwebhook": "WEBHOOK_URL",
   "openweathermap": "OPENWEATHERMAP_TOKEN",
-  "ownerid": "OWNER_ID"
+  "ownerid": "OWNER_ID",
+  "dragonapikey": "DRAGONAPIKEY"
 }
 
 ```
+
+Note: dragonapikey is using my other project, dragongooseCDN which is unfinished.
 
 After you all all of the information needed into config.json, 
 you will need to install dependencies by doing `npm install`.
