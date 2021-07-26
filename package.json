@@ -11,6 +11,7 @@
     "discord.js-pagination": "^1.0.3",
     "ffmpeg": "0.0.4",
     "ffmpeg-static": "^4.3.0",
+    "file-type": "^16.5.0",
     "form-data": "^2.3.3",
     "formdata": "^0.10.4",
     "lavalink": "^2.11.0",
