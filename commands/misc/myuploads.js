@@ -1,8 +1,9 @@
 const { Command } = require('discord.js-commando');
 const Discord = require('discord.js');
 const { Database } = require("quickmongo");
-const db = new Database(config.dburl);
 const config = require('../../config.json');
+const db = new Database(config.dburl);
+
 
 
 module.exports = class SayCommand extends Command {
