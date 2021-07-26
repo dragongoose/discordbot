@@ -30,6 +30,7 @@ You can start the bot by running `node index` in the projects directory.
 
 WEATHER
 * Show the current weather for a City or Zip code (USA only) `$weather`
+* Show the Forecast for the week using zipcode (USA only) `$forecast`
 
 MISC
 * Clear messages `$clear`
