@@ -24,18 +24,20 @@ module.exports = class SayCommand extends Command {
         if (!Attachment) return msg.channel.send('You must attatch a file.')
         console.log(Attachment.array()[0])
 
-        var toedit = await msg.channel.send('Downloading...')
+        var toedit = await msg.channel.send('Evalutaing!')
 
         try {
 
             const streamPipeline = promisify(pipeline);
-            const response = await fetch(Attachment.array()[0].url);
 
-            if (!response.ok) toedit.edit(`unexpected response ${response.statusText}`);
 
-            await streamPipeline(response.body, createWriteStream(`./upload/${Attachment.array()[0].name}`))
-
-            toedit.edit('Done Downloading! Uploading.')
+        const fileType = require('file-type');
+        const asd = await fetch(Attachment.array()[0].url);
+        const buffer = await asd.buffer();
+        const type = await fileType.fromBuffer(buffer)
+        console.log(type);
+        if (!asd.ok) toedit.edit(`unexpected response ${response.statusText}`);
+        toedit.edit('Got file! Sending to dragongooseCDN.')
 
             const https = require('https')
 
@@ -64,7 +66,9 @@ module.exports = class SayCommand extends Command {
 
             const formData = new FormData()
 
-            formData.append('sampleFile', fs.createReadStream(`./upload/${Attachment.array()[0].name}`))
+            console.log(Buffer.from(buffer))
+
+            formData.append('sampleFile', Buffer.from(buffer))
 
             const options = {
                 host: 'cdn.dragongoose.xyz',
@@ -78,22 +82,15 @@ module.exports = class SayCommand extends Command {
 
             const res = await makeRequest(formData, options);
 
-            const embed = new Discord.MessageEmbed()
-                .setColor('#00FF00')
-                .setTitle(`cdn.dragongoose.xyz`)
-                .setDescription(`Url: ${res}`)
-                .setTimestamp()
-                .setFooter('UDB', 'https://cdn.discordapp.com/avatars/860914974138695690/5e2c9d2e589c1fd46caa4b651586373e.webp?size=128');
+            toedit.edit("`" + res + "`")
 
-            toedit.edit(embed)
-
-
+        
 
         } catch (e) {
             console.log(e)
             return toedit.edit('Error')
         }
 
-
+        
     }
 };
