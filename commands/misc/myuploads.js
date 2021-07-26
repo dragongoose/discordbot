@@ -14,7 +14,7 @@ module.exports = class SayCommand extends Command {
 			guildOnly: true,
 		})
 	}
-	run(msg) {
+	async run(msg) {
         //reads user upload from db, then displays
 		try{
             var toedit = await msg.channel.send('Reading Database.')
