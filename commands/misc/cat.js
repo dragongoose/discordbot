@@ -15,12 +15,13 @@ module.exports = class CatCommand extends Command {
 		})
 	}
 	async run(msg) {
-		const { file } = await fetch('https://aws.random.cat/meow').then(response => response.json());
+		const res = await fetch('https://www.no-api-key.com/api/v1/animals/cat').then(response => response.json());
 
 		const catEmbed = new Discord.MessageEmbed()
 			.setColor('#0099ff')
 			.setTitle('cat')
-			.setImage(file)
+			.setDescription(res.fact)
+			.setImage(res.image)
 			.setFooter(`kitty cat requested by ${msg.member.user.tag}`)
 
 		msg.channel.send(catEmbed)
