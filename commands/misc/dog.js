@@ -16,12 +16,13 @@ module.exports = class DogCommand extends Command {
 	}
 	async run(msg) {
 		
-		const { link } = await fetch('https://some-random-api.ml/img/dog').then(response => response.json());
+		const res = await fetch('https://www.no-api-key.com/api/v1/animals/dog').then(response => response.json());
 
 		const dogEmbed = new Discord.MessageEmbed()
 			.setColor('#0099ff')
 			.setTitle('dog')
-			.setImage(link)
+			.setDescription(res.fact)
+			.setImage(res.image)
 			.setFooter(`dog requested by ${msg.member.user.tag}`)
 
 		msg.channel.send(dogEmbed)
