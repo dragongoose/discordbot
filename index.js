@@ -61,9 +61,13 @@ client.on("message", async (message) => {
   if (!message.guild) return; //ignore if message wasnt in a server
   if (message.author.bot) return; //ignore if message was from a bot
 
+  db.add(`${msg.author.id}.msgtotal`, 1)
+
   if(times[message.author.id] === undefined) times[message.author.id] = Date.now();
 
   if( Date.now() >= times[message.author.id] + 30000){
+
+    db.add(`${msg.author.id}.msgtwdlvl`, 1)
 
     times[message.author.id] = Date.now();
 
