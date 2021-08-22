@@ -1,4 +1,5 @@
 const { Command } = require('discord.js-commando')
+const config = require('../../config.json')
 
 
 module.exports = class SayCommand extends Command {
@@ -20,15 +21,18 @@ module.exports = class SayCommand extends Command {
 		})
 	}
 	run(msg, { text }) {
-		
-		if (text.includes('<@')) return msg.reply('no');
-
-		if (text == '@everyone') {
-			msg.reply('no')
+		if (msg.author.id == config.ownerid) {
+			return msg.say(text);
 		} else {
-			msg.say(text)
-			msg.delete()
-		}
 
+			if (text.includes('<@')) return msg.reply('no');
+
+			if (text == '@everyone') {
+				msg.reply('no')
+			} else {
+				msg.say(text)
+				msg.delete()
+			}
+		}
 	}
 };
