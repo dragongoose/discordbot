@@ -24,7 +24,7 @@ module.exports = class SayCommand extends Command {
 		})
 	}
 	async run(msg, { text }) {	
-        if (!msg.member.hasPermission('MANAGE_SERVER')) return msg.reply('No Perms!');
+        if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('No Perms!');
 
         var toedit = await msg.channel.send('Checking')
 
