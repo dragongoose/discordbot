@@ -8,9 +8,9 @@ module.exports = class DogCommand extends Command {
 		super(client, {
 			name: 'dog',
 			aliases: ['ruff'],
-			group: 'misc',
+			group: 'animal',
 			memberName: 'dog',
-			description: 'random picture of a dpg.',
+			description: 'random picture of a dog.',
 			guildOnly: true,
 		})
 	}
