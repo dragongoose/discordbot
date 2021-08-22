@@ -15,15 +15,25 @@ module.exports = class CatCommand extends Command {
 		})
 	}
 	async run(msg) {
-		const res = await fetch('https://www.no-api-key.com/api/v1/animals/cat').then(response => response.json());
 
-		const catEmbed = new Discord.MessageEmbed()
-			.setColor('#0099ff')
-			.setTitle('cat')
-			.setDescription(res.fact)
-			.setImage(res.image)
-			.setFooter(`kitty cat requested by ${msg.member.user.tag}`)
+		try {
 
-		msg.channel.send(catEmbed)
+
+			const res = await fetch('https://www.no-api-key.com/api/v1/animals/cat').then(response => response.json());
+
+			const catEmbed = new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle('cat')
+				.setDescription(res.fact)
+				.setImage(res.image)
+				.setFooter(`kitty cat requested by ${msg.member.user.tag}`)
+
+			msg.channel.send(catEmbed)
+
+		} catch (e) {
+			console.log(e)
+			msg.channel.send('error try again later')
+		}
+
 	}
 };

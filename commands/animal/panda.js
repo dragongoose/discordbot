@@ -14,16 +14,23 @@ module.exports = class DogCommand extends Command {
 		})
 	}
 	async run(msg) {
-		
-		const res = await fetch('https://www.no-api-key.com/api/v1/animals/panda').then(response => response.json());
 
-		const pandaEmbed = new Discord.MessageEmbed()
-			.setColor('#0099ff')
-			.setTitle('panda')
-			.setDescription(res.fact)
-			.setImage(res.image)
-			.setFooter(`panda requested by ${msg.member.user.tag}`)
+		try {
+			const res = await fetch('https://www.no-api-key.com/api/v1/animals/panda').then(response => response.json());
 
-		msg.channel.send(pandaEmbed)
+			const pandaEmbed = new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle('panda')
+				.setDescription(res.fact)
+				.setImage(res.image)
+				.setFooter(`panda requested by ${msg.member.user.tag}`)
+
+			msg.channel.send(pandaEmbed)
+		} catch (e) {
+			console.log(e)
+			msg.channel.send('error try again later')
+		}
+
+
 	}
 };

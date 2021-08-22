@@ -14,15 +14,22 @@ module.exports = class CatCommand extends Command {
 		})
 	}
 	async run(msg) {
-		const res = await fetch('https://some-random-api.ml/animal/kangaroo').then(response => response.json());
+		try {
 
-		const catEmbed = new Discord.MessageEmbed()
-			.setColor('#0099ff')
-			.setTitle('kangaroo')
-			.setDescription(res.fact)
-			.setImage(res.image)
-			.setFooter(`kangaroo requested by ${msg.member.user.tag}`)
+			const res = await fetch('https://some-random-api.ml/animal/kangaroo').then(response => response.json());
 
-		msg.channel.send(catEmbed)
+			const catEmbed = new Discord.MessageEmbed()
+				.setColor('#0099ff')
+				.setTitle('kangaroo')
+				.setDescription(res.fact)
+				.setImage(res.image)
+				.setFooter(`kangaroo requested by ${msg.member.user.tag}`)
+
+			msg.channel.send(catEmbed)
+		} catch (e) {
+			console.log(e)
+			msg.channel.send('error try again later')
+		}
+
 	}
 };
