@@ -21,6 +21,8 @@ module.exports = class SayCommand extends Command {
               maxUses: 1 // maximum times it can be used
             }).catch(console.log());
 
+        console.log(member)
+
         member.send(invite)
 
         member.kick()
