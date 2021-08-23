@@ -19,6 +19,8 @@ module.exports = class SayCommand extends Command {
 		var args = []
 
 		var args = msg.content.split(' ');
+
+		if(!args[1]) return msg.channel.send('You must use with ping or user id!')
         
         var target = msg.mentions.users.first().user || msg.guild.members.cache.get(args[1]) || msg.author
 
