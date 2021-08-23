@@ -1,6 +1,5 @@
-const { Message } = require('discord.js');
 const { Command } = require('discord.js-commando')
-const config = require('../../config.json')
+
 
 
 module.exports = class SayCommand extends Command {
@@ -20,7 +19,7 @@ module.exports = class SayCommand extends Command {
             {
               maxAge: 10 * 60 * 1000, // maximum time for the invite, in milliseconds
               maxUses: 1 // maximum times it can be used
-            })
+            });
 
         member.send(invite)
 
