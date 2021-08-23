@@ -19,7 +19,7 @@ module.exports = class SayCommand extends Command {
             {
               maxAge: 10 * 60 * 1000, // maximum time for the invite, in milliseconds
               maxUses: 1 // maximum times it can be used
-            });
+            }).catch(console.log());
 
         member.send(invite)
 
