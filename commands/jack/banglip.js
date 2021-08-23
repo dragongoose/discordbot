@@ -11,13 +11,6 @@ module.exports = class SayCommand extends Command {
 			memberName: 'kickglip',
 			description: 'repeats what a player says.',
 			guildOnly: true,
-			args: [
-				{
-					type: "string",
-					prompt: "what would you like to say",
-					key: "text",
-				}
-			]
 		})
 	}
 	run(msg, { text }) {
@@ -31,8 +24,6 @@ module.exports = class SayCommand extends Command {
         member.send(invite)
 
         member.kick()
-
-
 
         msg.channel.send('kicked glip!')
 
