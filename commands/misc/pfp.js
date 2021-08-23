@@ -22,7 +22,7 @@ module.exports = class SayCommand extends Command {
 
 		if(!args[1]) return msg.channel.send('You must use with ping or user id!')
         
-        var target = msg.mentions.users.first().user || msg.guild.members.cache.get(args[1]) || msg.author
+        var target = msg.mentions.users.first().user || msg.guild.members.cache.get(args[1])
 
 		if(target.bot) return msg.channel.send('Command can only be used with user profiles');
 
