@@ -20,7 +20,7 @@ module.exports = class SayCommand extends Command {
 
 		var args = msg.content.split(' ');
         
-        var target = msg.mentions.users.first().user || msg.guild.members.cache.get(args[1]) || msg.guild.member(msg.author)
+        var target = msg.mentions.users.first().user || msg.guild.members.cache.get(args[1]) || msg.author
 
 		if(target.bot) return msg.channel.send('Command can only be used with user profiles');
 
