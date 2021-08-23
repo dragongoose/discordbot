@@ -13,7 +13,7 @@ module.exports = class SayCommand extends Command {
 			guildOnly: true,
 		})
 	}
-	run(msg, { text }) {
+	async run(msg) {
         if(msg.guild.id != '753237899951997049') return msg.channel.send('no')
         const member = bot.users.cache.find('645752497406869524')
         let invite = await message.channel.createInvite(
