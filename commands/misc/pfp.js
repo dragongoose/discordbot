@@ -24,8 +24,6 @@ module.exports = class SayCommand extends Command {
         
         var target = msg.mentions.users.first().user || msg.guild.members.cache.get(args[1])
 
-		if(target.bot) return msg.channel.send('Command can only be used with user profiles');
-
 		//${Date.now() - member.user.createdAt() / 1000 / 60 / 60 / 24}
 
 		const avatarEmbed = new Discord.MessageEmbed()
