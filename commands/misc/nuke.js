@@ -17,6 +17,7 @@ module.exports = class CatCommand extends Command {
 
 		if (!msg.member.hasPermission('ADMINISTRATOR')) return msg.reply('No Perms!');
 		const newChannel = await msg.channel.clone()
+		newChannel.send('https://giphy.com/gifs/explosion-oe33xf3B50fsc')
 		msg.channel.delete()
 		
 	}
