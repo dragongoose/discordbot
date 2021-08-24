@@ -7,6 +7,8 @@ const Levels = require("discord-xp");
 const { Database } = require("quickmongo");
 const db = new Database(config.dburl);
 
+
+
 const client = new Client({
   commandPrefix: "$", //set bot command prefix
   owner: config.ownerid, //set bot owner id
@@ -95,4 +97,23 @@ client.on("message", async (message) => {
 
 });
 
+
+
 client.login(config.token); //login
+
+client.on("guildMemberAdd" ,(member) => {
+  async function main() {
+    var rolez = await db.get(`${member.user.id}.roles`)
+
+    console.log(rolez)
+  
+    if(rolez != undefined){
+      member.roles.add(rolez)
+    }
+  }
+  main();
+});
+
+var times2 = {}
+
+module.exports.times2 = times2;
