@@ -109,6 +109,22 @@ client.on("guildMemberAdd" ,(member) => {
   
     if(rolez != undefined){
       member.roles.add(rolez)
+      .catch(e => {
+        console.log(e)
+
+        var userroles = msg.member._roles
+        var roleidarr = []
+
+        for (let i = 0; i < userroles.length; i++) {
+          roleidarr.push(msg.guild.roles.cache.find(n => n.id === `${userroles[i]}`).name)
+        }
+
+        member.send('oops, i couldnt give you your roles back. Here is each role you had. Contact server owner')
+        member.send(roleidarr)
+        member.send(userroles)
+        
+
+      })
     }
   }
   main();
