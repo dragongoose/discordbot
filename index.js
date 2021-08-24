@@ -22,7 +22,8 @@ client.registry
     ["weather", "Weather"],
     ["ranking", "Ranking"],
     ["jack", "Jack"],
-    ["animal", "Animal"]
+    ["animal", "Animal"],
+    ["fun", "Fun"]
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({
