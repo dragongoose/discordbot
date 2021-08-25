@@ -23,7 +23,7 @@ client.registry
     ["ranking", "Ranking"],
     ["jack", "Jack"],
     ["animal", "Animal"],
-    ["fun", "Fun"]
+    ["sound", "Sound"]
   ])
   .registerDefaultGroups()
   .registerDefaultCommands({
