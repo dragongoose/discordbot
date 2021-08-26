@@ -1,5 +1,5 @@
 const client = require("../index");
-const levelfunc = require("./utils/levelfunc");
+const levelfunc = require("../utils/levelfunc");
 const Levels = require("discord-xp");
 const config = require("../config.json")
 
