@@ -3,7 +3,7 @@ const { promisify } = require("util");
 const { Client } = require("discord.js");
 const { mongooseConnectionString } = require("../config.json");
 const mongoose = require("mongoose");
-
+const chalk = require("chalk")
 const globPromise = promisify(glob);
 
 /**
@@ -20,6 +20,8 @@ module.exports = async (client) => {
         if (file.name) {
             const properties = { directory, ...file };
             client.commands.set(file.name, properties);
+
+            console.log(chalk.cyan('[!] Loaded command '), chalk.green(file.name), chalk.red(' from '), chalk.green(properties.directory))
         }
     });
 
