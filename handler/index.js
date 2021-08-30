@@ -38,6 +38,7 @@ module.exports = async (client) => {
     slashCommands.map((value) => {
         const file = require(value);
         if (!file?.name) return;
+        console.log(file.name)
         client.slashCommands.set(file.name, file);
 
         if (["MESSAGE", "USER"].includes(file.type)) delete file.description;
@@ -50,6 +51,7 @@ module.exports = async (client) => {
             //.commands.set(arrayOfSlashCommands);
 
         // Register for all the guilds the bot is in
+        console.log(arrayOfSlashCommands)
         await client.application.commands.set(arrayOfSlashCommands);
     });
 

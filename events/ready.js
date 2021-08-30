@@ -1,11 +1,101 @@
-const levelfunc2 = require("../utils/levelfunc2");
-const levelfunc = require("../utils/levelfunc");
 const client = require("../index");
-const Levels = require("discord-xp");
-const config = require("../config.json")
-const mongoose = require('mongoose');
-mongoose.connect(config.dburl, { useNewUrlParser: true, useUnifiedTopology: true });
+const distube = require('distube');
+const { SpotifyPlugin } = require("@distube/spotify");
+const { MessageEmbed } = require('discord.js');
+client.distube = new distube.default(client, {
+    plugins: [new SpotifyPlugin()],
+    searchSongs: 10,
+    savePreviousSongs: true
+})
 
-client.on("ready", () =>
+client.on("ready", () => {
     console.log(`${client.user.tag} is up and ready to go!`)
-);
+
+    const status = queue =>
+	`Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.join(', ')
+		|| 'Off'}\` | Loop: \`${
+		queue.repeatMode
+			? queue.repeatMode === 2
+				? 'All Queue'
+				: 'This Song'
+			: 'Off'
+	}\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
+
+    client.distube.on('error', (channel, error) => {
+        console.log(error)
+
+        channel.send(`An error happened.`) // Discord limits 2000 characters in a message
+    })
+
+        client.distube
+        .on('playSong', (queue, song) => {
+            const embed = new MessageEmbed()
+            .setDescription(`**Now Playing [${song.name}](${song.url})** \n ${status(queue)}`)
+            .addFields(
+                { name: 'Requested by:', value: `<@${song.user.id}>`, inline: true},
+                { name: 'Duration', value: song.formattedDuration, inline: true }
+            )
+            .setColor(0xD53C55) // Green: 0x00AE86
+            .setFooter('hi :3')
+            .setTimestamp();
+
+            queue.textChannel.send({embeds: [embed]})
+        })
+        .on('addSong', (queue, song) => {
+            const embed = new MessageEmbed()
+            .setDescription(`**Queued [${song.name}](${song.url})**`)
+            .addFields(
+                { name: 'Requested by:', value: `<@${song.user.id}>`, inline: true},
+                { name: 'Duration', value: song.formattedDuration, inline: true }
+            )
+            .setColor(0xD53C55) // Green: 0x00AE86
+            .setFooter('hi :3')
+            .setTimestamp();
+
+            queue.textChannel.send({embeds: [embed]})
+            .then((msg) => {
+                setTimeout(() => {
+                    msg.delete()
+                }, song.duration * 60 * 10)
+            })
+        })
+
+        .on('addList', (queue, playlist) =>{
+            const embed = new MessageEmbed()
+            .setDescription(`**Queued playlist [${playlist.name}](${playlist.url}) ** \n ${status(queue)}`)
+            .addFields(
+                { name: 'Requested by:', value: `<@${playlist.user.id}>`, inline: true},
+            )
+            .setColor(0xD53C55) // Green: 0x00AE86
+            .setFooter('hi :3')
+            .setTimestamp();
+
+            queue.textChannel.send({embeds: [embed]})
+        })
+        // DisTubeOptions.searchSongs = true
+        .on('searchResult', (message, result) => {
+            let i = 0
+            message.channel.send(
+                `**Choose an option from below**\n${result
+                    .map(
+                        song =>
+                            `**${++i}**. ${song.name} - \`${song.formattedDuration
+                            }\``,
+                    )
+                    .join(
+                        '\n',
+                    )}\n*Enter anything else or wait 30 seconds to cancel*`,
+            )
+        })
+        // DisTubeOptions.searchSongs = true
+        .on('searchCancel', message => message.channel.send(`Searching canceled`))
+        .on('searchInvalidAnswer', message =>
+            message.channel.send(`searchInvalidAnswer`))
+        .on('searchNoResult', message => message.channel.send(`No result found!`))
+        .on('finish', queue => queue.textChannel.send('Finished queue!'))
+        //.on('finishSong', queue => queue.textChannel.send('finished playing'))
+        .on('disconnect', queue => queue.textChannel.send('Disconnected!'))
+        .on('empty', queue => queue.textChannel.send('Empty!'))
+});
+
+
