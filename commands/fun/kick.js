@@ -27,6 +27,8 @@ module.exports = {
             member.send(`lmao baka discord.gg/${invite.code}`).then()
             member.kick()
 
+            msg.channel.send(`lmao trolled ${msg.author.tag}`)
+
         } catch (e) {
             msg.channel.send('error')
             console.log(e)
