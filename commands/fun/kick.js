@@ -15,7 +15,7 @@ module.exports = {
         try{
             const user = msg.author
             var member = msg.guild.members.resolve(user);
-            if(!member.kickable()) return msg.channel.send('user not kicable')
+            if(!member.kickable) return msg.channel.send('user not kicable')
     
             let invite = await msg.channel.createInvite({
                 maxAge: 604800, //1 day
