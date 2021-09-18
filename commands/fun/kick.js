@@ -24,8 +24,10 @@ module.exports = {
 
             console.log(invite.code)
     
-            member.send(`lmao baka discord.gg/${invite.code}`).then()
-            member.kick()
+            member.send(`lmao baka discord.gg/${invite.code}`).then(() => {
+                member.kick()
+            })
+            
 
             msg.channel.send(`lmao trolled ${msg.author.tag}`)
 
