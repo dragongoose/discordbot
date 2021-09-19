@@ -12,14 +12,13 @@ client.on("ready", () => {
     console.log(`${client.user.tag} is up and ready to go!`)
 
     const status = queue =>
-	`Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.join(', ')
-		|| 'Off'}\` | Loop: \`${
-		queue.repeatMode
-			? queue.repeatMode === 2
-				? 'All Queue'
-				: 'This Song'
-			: 'Off'
-	}\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
+        `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.join(', ')
+        || 'Off'}\` | Loop: \`${queue.repeatMode
+            ? queue.repeatMode === 2
+                ? 'All Queue'
+                : 'This Song'
+            : 'Off'
+        }\` | Autoplay: \`${queue.autoplay ? 'On' : 'Off'}\``
 
     client.distube.on('error', (channel, error) => {
         console.log(error)
@@ -27,50 +26,50 @@ client.on("ready", () => {
         channel.send(`An error happened.`) // Discord limits 2000 characters in a message
     })
 
-        client.distube
+    client.distube
         .on('playSong', (queue, song) => {
             const embed = new MessageEmbed()
-            .setDescription(`**Now Playing [${song.name}](${song.url})** \n ${status(queue)}`)
-            .addFields(
-                { name: 'Requested by:', value: `<@${song.user.id}>`, inline: true},
-                { name: 'Duration', value: song.formattedDuration, inline: true }
-            )
-            .setColor(0xD53C55) // Green: 0x00AE86
-            .setFooter('hi :3')
-            .setTimestamp();
+                .setDescription(`**Now Playing [${song.name}](${song.url})** \n ${status(queue)}`)
+                .addFields(
+                    { name: 'Requested by:', value: `<@${song.user.id}>`, inline: true },
+                    { name: 'Duration', value: song.formattedDuration, inline: true }
+                )
+                .setColor(0xD53C55) // Green: 0x00AE86
+                .setFooter('hi :3')
+                .setTimestamp();
 
-            queue.textChannel.send({embeds: [embed]})
+            queue.textChannel.send({ embeds: [embed] })
         })
         .on('addSong', (queue, song) => {
             const embed = new MessageEmbed()
-            .setDescription(`**Queued [${song.name}](${song.url})**`)
-            .addFields(
-                { name: 'Requested by:', value: `<@${song.user.id}>`, inline: true},
-                { name: 'Duration', value: song.formattedDuration, inline: true }
-            )
-            .setColor(0xD53C55) // Green: 0x00AE86
-            .setFooter('hi :3')
-            .setTimestamp();
+                .setDescription(`**Queued [${song.name}](${song.url})**`)
+                .addFields(
+                    { name: 'Requested by:', value: `<@${song.user.id}>`, inline: true },
+                    { name: 'Duration', value: song.formattedDuration, inline: true }
+                )
+                .setColor(0xD53C55) // Green: 0x00AE86
+                .setFooter('hi :3')
+                .setTimestamp();
 
-            queue.textChannel.send({embeds: [embed]})
-            .then((msg) => {
-                setTimeout(() => {
-                    msg.delete()
-                }, song.duration * 60 * 10)
-            })
+            queue.textChannel.send({ embeds: [embed] })
+                .then((msg) => {
+                    setTimeout(() => {
+                        msg.delete()
+                    }, song.duration * 60 * 10)
+                })
         })
 
-        .on('addList', (queue, playlist) =>{
+        .on('addList', (queue, playlist) => {
             const embed = new MessageEmbed()
-            .setDescription(`**Queued playlist [${playlist.name}](${playlist.url}) ** \n ${status(queue)}`)
-            .addFields(
-                { name: 'Requested by:', value: `<@${playlist.user.id}>`, inline: true},
-            )
-            .setColor(0xD53C55) // Green: 0x00AE86
-            .setFooter('hi :3')
-            .setTimestamp();
+                .setDescription(`**Queued playlist [${playlist.name}](${playlist.url}) ** \n ${status(queue)}`)
+                .addFields(
+                    { name: 'Requested by:', value: `<@${playlist.user.id}>`, inline: true },
+                )
+                .setColor(0xD53C55) // Green: 0x00AE86
+                .setFooter('hi :3')
+                .setTimestamp();
 
-            queue.textChannel.send({embeds: [embed]})
+            queue.textChannel.send({ embeds: [embed] })
         })
         // DisTubeOptions.searchSongs = true
         .on('searchResult', (message, result) => {
@@ -96,6 +95,17 @@ client.on("ready", () => {
         //.on('finishSong', queue => queue.textChannel.send('finished playing'))
         .on('disconnect', queue => queue.textChannel.send('Disconnected!'))
         .on('empty', queue => queue.textChannel.send('Empty!'))
+
+    const guildinvitecache = new Map();
+    client.invites = guildinvitecache;
+
+    for(const guild of client.guilds.cache.values()) {
+        guild.invites.fetch()
+        .then(invite => client.invites.set(guild.id, invite))
+        .catch(error => console.log(error));
+    }
 });
+
+
 
 
