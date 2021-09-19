@@ -79,6 +79,7 @@ client.on('guildMemberAdd', async (member) => {
     let role = member.guild.roles.cache.find(r => r.name === "new kid");
     let memberrole = member.guild.roles.cache.find(r => r.name === "member");
     let interviewerrole = member.guild.roles.cache.find(r => r.name === "interviewer")
+    let inviterrole = member.guild.roles.cache.find(r => r.name === "inviter")
 
     if(!role) return;
     if(!memberrole) return;
@@ -87,7 +88,7 @@ client.on('guildMemberAdd', async (member) => {
     var owner = member.guild.members.cache.get(member.guild.ownerId);
 
     member.roles.add(role);
-    guildinviter.roles.add(interviewerrole);
+    guildinviter.roles.add(inviterrole);
     owner.roles.add(interviewerrole);
 
     const msg = await interviewchannel.send({embeds:[interviewembed]})
@@ -110,7 +111,7 @@ client.on('guildMemberAdd', async (member) => {
                 case '✅':
                     member.roles.remove(role);
                     member.roles.add(memberrole);
-                    guildinviter.roles.remove(interviewerrole);
+                    guildinviter.roles.remove(inviterrole);
                     owner.roles.remove(interviewerrole);
                     logChannel.send(`<@${member.id}> was accepted by <@${user.id}>`)
                     break;
