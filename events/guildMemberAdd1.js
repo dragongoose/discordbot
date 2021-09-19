@@ -40,8 +40,9 @@ client.on('guildMemberAdd', async (member) => {
     for (let i = 0; i < invites.length; i++) {
         var cached = oldcxu[invites[i]]
         var newer = newcxu[invites[i]]
-        if (cached == newer) {
-            usedinvite = newInvites.find(n => n.code === invites[i - 1])
+        console.log(`CACGED: ${cached} NEWER: ${newer}`)
+        if (cached + 1 == newer) {
+            usedinvite = newInvites.find(n => n.code === invites[i])
         }
     }
 
@@ -49,6 +50,8 @@ client.on('guildMemberAdd', async (member) => {
     const logChannel = member.guild.channels.cache.find(channel => channel.name === "🗒-logs");
     // If the channel doesn't exist, lets do nothing.
     if (!logChannel) return console.log('no channel');
+
+    console.log(usedinvite)
 
     const { code, uses, inviter, channel } = usedinvite;
 
@@ -92,6 +95,7 @@ client.on('guildMemberAdd', async (member) => {
     owner.roles.add(interviewerrole);
 
     const msg = await interviewchannel.send({embeds:[interviewembed]})
+    interviewchannel.send(`||<@&889156206143340574> <@&889008732342738945> ||`)
     await msg.react('✅')
     await msg.react('❌')
 
@@ -114,12 +118,17 @@ client.on('guildMemberAdd', async (member) => {
                     guildinviter.roles.remove(inviterrole);
                     owner.roles.remove(interviewerrole);
                     logChannel.send(`<@${member.id}> was accepted by <@${user.id}>`)
+
+                    msg.channel.clone()
+                    msg.channel.delete()
                     break;
                 case '❌':
                     guildinviter.roles.remove(interviewerrole);
                     owner.roles.remove(interviewerrole);
                     member.kick()
                     logChannel.send(`<@${member.id}> was declined and kicked by <@${user.id}>`)
+                    msg.channel.clone()
+                    msg.channel.delete()
                     break;
             }
         }
