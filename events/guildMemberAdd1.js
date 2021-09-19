@@ -73,7 +73,7 @@ client.on('guildMemberAdd', async (member) => {
     .setColor(0xD53C55) // Green: 0x00AE86
     .setTimestamp();
 
-    const interviewchannel = member.guild.channels.cache.find(channel => channel.name === "interview");
+    const interviewchannel = member.guild.channels.cache.find(channel => channel.name === "invites-n-shit");
 
     if(!interviewchannel) return; //ignore if there is no interview channel
     let role = member.guild.roles.cache.find(r => r.name === "new kid");
