@@ -38,7 +38,11 @@ client.on("ready", () => {
                 .setFooter('hi :3')
                 .setTimestamp();
 
-            queue.textChannel.send({ embeds: [embed] })
+            queue.textChannel.send({ embeds: [embed] }).then(msg => {
+                setTimeout(() => {
+                    msg.delete
+                }, song.duration * 1000)
+            })
         })
         .on('addSong', (queue, song) => {
             const embed = new MessageEmbed()
@@ -55,7 +59,7 @@ client.on("ready", () => {
                 .then((msg) => {
                     setTimeout(() => {
                         msg.delete()
-                    }, song.duration * 60 * 10)
+                    }, song.duration * 1000)
                 })
         })
 
