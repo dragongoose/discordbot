@@ -3,6 +3,7 @@ const config = require("../../config.json");
 
 module.exports = {
     name: "poll",
+    description: "creates a poll",
     //aliases: ['repeat'],
     /**
      *

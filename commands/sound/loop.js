@@ -3,6 +3,7 @@ const DisTube = require("distube");
 
 module.exports = {
     name: "loop",
+    description: "loops current queue/song",
     aliases: ['repeat'],
     /**
      *

@@ -3,6 +3,7 @@ const DisTube = require("distube");
 
 module.exports = {
     name: "resume",
+    description: "Resumes song if it is paused.",
     //aliases: ['p'],
     /**
      *

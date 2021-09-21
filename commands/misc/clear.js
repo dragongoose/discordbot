@@ -2,6 +2,7 @@ const { Message, Client, MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: "clear",
+    description: "clears messages in bulk",
     //aliases: ['p'],
     /**
      *

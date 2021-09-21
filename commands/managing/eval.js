@@ -3,6 +3,7 @@ const config = require("../../config.json");
 
 module.exports = {
     name: "eval",
+    description: "owneronly",
     //aliases: ['repeat'],
     /**
      *

@@ -4,6 +4,7 @@ const fetch = require('node-fetch')
 
 module.exports = {
     name: "fact",
+    description: "random fact.",
     aliases: ['funfact', 'random fact'],
     /**
      *

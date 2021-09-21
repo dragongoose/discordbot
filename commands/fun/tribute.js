@@ -1,9 +1,10 @@
 const { Message, Client } = require("discord.js");
+const config = require("../../config.json");
 
 module.exports = {
-    name: "pfp",
-    description: "gets a users pfp",
-    aliases: ['avatar'],
+    name: "tribute",
+    description: "plays groovy's and rythm's last songs before shutting down.",
+    //aliases: ['repeat'],
     /**
      *
      * @param {Client} client
@@ -11,10 +12,8 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, msg, args) => {
-        var target = msg.mentions.users.first() || msg.author
 
-        msg.channel.send(target.avatarURL({ format: 'png' }))
 
-		
+
     },
 };

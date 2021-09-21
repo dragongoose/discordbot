@@ -3,6 +3,7 @@ const config = require("../../config.json");
 
 module.exports = {
     name: "timeout",
+    description: "put a image of someone in timeout",
     //aliases: [''],
     /**
      *

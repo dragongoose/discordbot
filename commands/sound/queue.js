@@ -3,6 +3,7 @@ const DisTube = require("distube");
 
 module.exports = {
     name: "queue",
+    description: "Shows current queue",
     aliases: ['q'],
     /**
      *

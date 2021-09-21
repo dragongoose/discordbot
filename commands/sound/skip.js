@@ -3,6 +3,7 @@ const DisTube = require("distube");
 
 module.exports = {
     name: "skip",
+    description: 'Skips the current song in a queue',
     //aliases: ['p'],
     /**
      *

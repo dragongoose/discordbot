@@ -3,6 +3,7 @@ const DisTube = require("distube");
 
 module.exports = {
     name: "leave",
+    description: "bot leaves the voice channel",
     aliases: ['die'],
     /**
      *

@@ -3,6 +3,7 @@ const DisTube = require("distube");
 
 module.exports = {
     name: "play",
+    description: "plays song",
     aliases: ['p'],
     /**
      *

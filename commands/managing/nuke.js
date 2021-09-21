@@ -2,6 +2,7 @@ const { Message, Client, MessageEmbed } = require("discord.js");
 
 module.exports = {
     name: "nuke",
+    description: "clones a channel and deletes the old one",
     //aliases: ['p'],
     /**
      *

@@ -2,6 +2,7 @@ const { Message, Client } = require("discord.js");
 
 module.exports = {
     name: "coinflip",
+    description: "flips a coin",
     aliases: ['random'],
     /**
      *

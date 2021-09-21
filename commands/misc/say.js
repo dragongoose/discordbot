@@ -3,6 +3,7 @@ const config = require("../../config.json");
 
 module.exports = {
     name: "say",
+    description: "repeats what a player says",
     aliases: ['repeat'],
     /**
      *

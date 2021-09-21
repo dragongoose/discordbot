@@ -2,6 +2,7 @@ const { Message, Client, MessageEmbed} = require("discord.js");
 
 module.exports = {
     name: "ping",
+    description: "gets ping of bot",
     //aliases: ['p'],
     /**
      *

@@ -4,6 +4,7 @@ const webhookClient = new WebhookClient({ url: 'https://discord.com/api/webhooks
 
 module.exports = {
     name: "feedback",
+    description: "report feedback",
     aliases: ['bug'],
     /**
      *
