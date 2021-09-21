@@ -28,6 +28,7 @@ client.on("ready", () => {
 
     client.distube
         .on('playSong', (queue, song) => {
+            if(['https://www.youtube.com/watch?v=Pa_J0Dw0MwE', 'https://www.youtube.com/watch?v=4Q46xYqUwZQ'].includes(song.url)) return;
             const embed = new MessageEmbed()
                 .setDescription(`**Now Playing [${song.name}](${song.url})** \n ${status(queue)}`)
                 .addFields(
@@ -45,6 +46,9 @@ client.on("ready", () => {
             })
         })
         .on('addSong', (queue, song) => {
+
+            if(['https://www.youtube.com/watch?v=Pa_J0Dw0MwE', 'https://www.youtube.com/watch?v=4Q46xYqUwZQ'].includes(song.url)) return;
+
             const embed = new MessageEmbed()
                 .setDescription(`**Queued [${song.name}](${song.url})**`)
                 .addFields(
