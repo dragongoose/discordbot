@@ -19,37 +19,38 @@ const main = async (total, msg, timeout) => {
             const filter = (reaction, user) => (reaction.emoji.name === '⬅' || reaction.emoji.name === '➡');
 
             const collector = message.createReactionCollector({ filter, time: 604800000 });
+
+            client.paginator = {}
+            client.paginator[message.id] = 0
+            var currentpage = client.paginator[message.id]
             
             collector.on('collect', (reaction, user) => {
                 if(user.bot) return;
-
-                client.paginator[String(message.id)] = 0
-                var currentpage =  client.paginator
         
                     switch (reaction.emoji.name) {
                         case '⬅':
                             if(currentpage != 0){
                                 const run = async () => {
-                                    --currentpage;
-                                    console.log(currentpage)
-                                    message.edit('page ' + currentpage).then(console.log('1'))
-                                    message.reactions.removeAll()
-                                    await message.react('⬅')
-                                    await message.react('➡')
+                                    currentpage = currentpage - 1
+                                    message.edit({ embeds:[total[currentpage]]})
+                                    for(const reaction of message.reactions.cache.values()){
+                                        await reaction.users.remove(user.id)
+                                    }
+
 
                                 }
                                 run()
                             }
                             break;
                         case '➡':
-                            if(currentpage != total.length){
+                            if(currentpage != total.length - 1){
                                const run = async () => {
-                                    ++currentpage;
-                                    console.log(currentpage)
-                                    message.edit('page ' + currentpage).then(console.log('edited'))
-                                    message.reactions.removeAll()
-                                    await message.react('⬅')
-                                    await message.react('➡')
+                                    currentpage = currentpage + 1
+                                    message.edit({ embeds:[total[currentpage]]})
+                                    for(const reaction of message.reactions.cache.values()){
+                                        await reaction.users.remove(user.id)
+                                    }
+
                                 }
                                 run()
                             }
