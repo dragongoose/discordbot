@@ -39,8 +39,10 @@ module.exports = async (client) => {
     helpcommand.name = 'help'
     helpcommand.description = "Shows the bot's every command."
     helpcommand.run = async (client, message, args) => {
-        message.member.send({ content: helpcommandcontent });
-        message.react('✅');
+        message.member.send({ content: helpcommandcontent })
+        .then(() => { message.react('✅'); })
+        .catch((e) => {message.reply('I couldnt DM you!')})
+        
     }
     client.commands.set('help', helpcommand);
     console.log(chalk.green('[!] Generated help command!'))
