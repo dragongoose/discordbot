@@ -55,7 +55,7 @@ module.exports = {
         var city = args.join(' ')
     
        
-    if(parseInt(city.length) = 5) {
+    if(parseInt(city.length) == 5) {
         var url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + config.openweathermap + '&units=imperial';
     } else {
         var url = 'https://api.openweathermap.org/data/2.5/weather?zip=' + city + '&appid=' + config.openweathermap + '&units=imperial';
