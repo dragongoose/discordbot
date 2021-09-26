@@ -53,12 +53,16 @@ module.exports = {
         }
 
         var city = args.join(' ')
+
+        function isNumeric(value) {
+            return /^-?\d+$/.test(value);
+        }
     
        
-    if(parseInt(city.length) == 5) {
-        var url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + config.openweathermap + '&units=imperial';
-    } else {
+    if(isNumeric(city)) {
         var url = 'https://api.openweathermap.org/data/2.5/weather?zip=' + city + '&appid=' + config.openweathermap + '&units=imperial';
+    } else {
+        var url = 'https://api.openweathermap.org/data/2.5/weather?q=' + city + '&appid=' + config.openweathermap + '&units=imperial';
     }
            
            
