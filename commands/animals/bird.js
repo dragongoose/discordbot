@@ -3,6 +3,7 @@ const fetch = require('node-fetch');
 
 module.exports = {
     name: "bird",
+    description: "Sends picture of a bird",
     aliases: ['birb'],
     /**
      *

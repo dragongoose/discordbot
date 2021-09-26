@@ -1,9 +1,10 @@
 const { glob } = require("glob");
 const { promisify } = require("util");
 const { Client } = require("discord.js");
-const { mongooseConnectionString } = require("../config.json");
+const bot = require("../index.js");
 const mongoose = require("mongoose");
 const chalk = require("chalk")
+
 const globPromise = promisify(glob);
 
 /**
@@ -12,6 +13,14 @@ const globPromise = promisify(glob);
 module.exports = async (client) => {
     // Commands
     const commandFiles = await globPromise(`${process.cwd()}/commands/**/*.js`);
+    var helpcommandcontent = `My commands: \n`
+    for(let i = 0; i < commandFiles.length; i++){
+        var file = require(commandFiles[i])
+
+        var commandhelp = `**${file.name}**: ${file.description} \n`
+        helpcommandcontent += commandhelp
+    }
+
     commandFiles.map((value) => {
         const file = require(value);
         const splitted = value.split("/");
@@ -24,6 +33,17 @@ module.exports = async (client) => {
             console.log(chalk.cyan('[!] Loaded command '), chalk.green(file.name), chalk.red(' from '), chalk.green(properties.directory))
         }
     });
+
+    //create help command
+    var helpcommand = {};
+    helpcommand.name = 'help'
+    helpcommand.description = "Shows the bot's every command."
+    helpcommand.run = async (client, message, args) => {
+        message.member.send({ content: helpcommandcontent });
+        message.react('✅');
+    }
+    client.commands.set('help', helpcommand);
+    console.log(chalk.green('[!] Generated help command!'))
 
     // Events
     const eventFiles = await globPromise(`${process.cwd()}/events/*.js`);
@@ -38,8 +58,9 @@ module.exports = async (client) => {
     slashCommands.map((value) => {
         const file = require(value);
         if (!file?.name) return;
-        console.log(file.name)
         client.slashCommands.set(file.name, file);
+        console.log(file)
+        console.log(chalk.cyan('[!] Loaded slash command '), chalk.green(file.name))
 
         if (["MESSAGE", "USER"].includes(file.type)) delete file.description;
         arrayOfSlashCommands.push(file);
@@ -51,15 +72,12 @@ module.exports = async (client) => {
             //.commands.set(arrayOfSlashCommands);
 
         // Register for all the guilds the bot is in
-        console.log(arrayOfSlashCommands)
         await client.application.commands.set(arrayOfSlashCommands);
     });
 
     // mongoose
+    const { mongooseConnectionString } = require('../config.json')
     if (!mongooseConnectionString) return;
 
-    mongoose.connect(mongooseConnectionString, {
-        useFindAndModify: true,
-        useUnifiedTopology: true,
-    });
+    mongoose.connect(mongooseConnectionString).then(() => console.log('Connected to mongodb'));
 };

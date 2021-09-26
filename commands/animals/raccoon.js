@@ -4,6 +4,7 @@ const fetch = require('node-fetch');
 
 module.exports = {
     name: "raccoon",
+    description: "Sends picture of a raccoon",
     //aliases: [''],
     /**
      *
