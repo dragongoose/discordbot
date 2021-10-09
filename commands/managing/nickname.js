@@ -21,7 +21,7 @@ module.exports = {
         console.log(msg.member.guild.me.permissions.has('MANAGE_NICKNAMES'))
 
         try {
-            msg.member.setNickname(args[0])
+            msg.member.setNickname(args.join(' '))
             .then(() => {
                 msg.react('✅')
             })
