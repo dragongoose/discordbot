@@ -1,7 +1,5 @@
 const client = require("../index");
 const { MessageEmbed } = require('discord.js');
-const { isReady } = require("../index");
-const { log } = require("npmlog");
 
 client.on('guildMemberAdd', async (member) => {
     if (member.user.bot) return; //ignore bots
@@ -191,5 +189,3 @@ client.on('guildMemberAdd', async (member) => {
     });
 
 })
-
-module.exports.usedinvite = this.usedinvite;
