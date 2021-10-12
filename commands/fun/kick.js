@@ -27,7 +27,7 @@ module.exports = {
     
             member.send(`lmao baka discord.gg/${invite.code}`).then(() => {
                 member.kick()
-            })
+            }).catch((e) => {msg.channel.send('He had dms off, couldnt invite him :troll:'); member.kick()})
             
 
             msg.channel.send(`lmao trolled ${msg.author.tag}`)
