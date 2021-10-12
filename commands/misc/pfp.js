@@ -13,7 +13,7 @@ module.exports = {
     run: async (client, msg, args) => {
         var target = msg.mentions.users.first() || msg.author
 
-        msg.channel.send(target.avatarURL({ format: 'png' }))
+        msg.channel.send(target.avatarURL())
 
 		
     },
