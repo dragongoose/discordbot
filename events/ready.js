@@ -11,10 +11,7 @@ client.distube = new distube.default(client, {
 client.on("ready", () => {
     console.log(`${client.user.tag} is up and ready to go!`)
 
-    client.user.setPresence({
-        game: { name: "you're mom" },
-        status: 'idle',
-    });
+    client.user.setActivity("Counter Strike: Global Offensive", {type: "PLAYING"}) 
 
     const status = queue =>
         `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.join(', ')
