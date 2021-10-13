@@ -11,6 +11,11 @@ client.distube = new distube.default(client, {
 client.on("ready", () => {
     console.log(`${client.user.tag} is up and ready to go!`)
 
+    client.user.setPresence({
+        game: { name: "you're mom" },
+        status: 'idle',
+    });
+
     const status = queue =>
         `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.join(', ')
         || 'Off'}\` | Loop: \`${queue.repeatMode
