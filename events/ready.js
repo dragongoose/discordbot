@@ -12,6 +12,7 @@ client.on("ready", () => {
     console.log(`${client.user.tag} is up and ready to go!`)
 
     client.user.setActivity("Counter Strike: Global Offensive", {type: "PLAYING"}) 
+    client.user.setStatus('idle')
 
     const status = queue =>
         `Volume: \`${queue.volume}%\` | Filter: \`${queue.filters.join(', ')
