@@ -5,8 +5,8 @@ client.on("messageCreate", async (message) => {
 
     if(message.author.bot) return;
 
-    const words = message.content.split(" ");
-    //console.log(words)
+    const words = message.content.toLowerCase().split(" ");
+    const words = words.map(name => name.toLowerCase());
 
 
     for (let i = 0; i < words.length; i++) {
