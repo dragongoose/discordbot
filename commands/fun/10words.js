@@ -19,7 +19,7 @@ module.exports = {
         try {
 
             totalWords.find({ guildID: msg.guild.id }, (err, res) => {
-                if (err) return console.log(error)
+                if (err) return console.log(err)
 
                 var parsed = JSON.parse(JSON.stringify(res))
                 while (parsed.length >= 10) {
