@@ -11,6 +11,7 @@ client.on("messageCreate", async (message) => {
 
     for (let i = 0; i < words.length; i++) {
         if(words[i] === '') return;
+        if(words[i] === 'nigga') return;
         try {
             const allthewords = await totalWords.find({ guildID: message.guild.id, word: words[i] });
 
