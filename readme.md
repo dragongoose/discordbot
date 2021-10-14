@@ -11,10 +11,8 @@ Once you create config.json, you are going to need to add these entries
 ```json
 }
    "token": "DISCORD TOKEN",
-    "dburl": "MONGODBURL",
+    "mongooseConnectionString": "MONGODBURL",
     "prefix": "PREFIX",
-    "feedbackwebhookid": "WEBHOOK ID FOR FEEDBACK",
-    "feedbackwebhooktoken" : "WEBHOOK TOKEN",
     "openweathermap": "OPEN WEATHER MAP TOKEN",
     "ownerid": "OWNERID"
   }
@@ -37,4 +35,4 @@ Pull requests are welcome. For major changes, please open an issue first to disc
 Please make sure to update tests as appropriate.
 
 ## License
-[MIT](https://choosealicense.com/licenses/mit/)
+[GPLv3](https://choosealicense.com/licenses/gpl-3.0/)
