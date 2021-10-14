@@ -16,7 +16,7 @@
     "formdata": "^0.10.4",
     "lavalink": "^2.11.0",
     "mongoose": "^5.12.3",
-    "node-fetch": "^2.6.1",
+    "node-fetch": "^3.0.0",
     "node-gtts": "^2.0.2",
     "quickmongo": "^3.0.2",
     "request": "^2.88.2",
