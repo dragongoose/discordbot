@@ -39,8 +39,8 @@ setTimeout(async () => {
     console.log(guildwithwordtracker)
 
     setInterval(async () => {
-        var descrip;
         for (let i = 0; i < guildwithwordtracker.length; i++) {
+            var descrip;
             totalWords.find({ guildID: guildwithwordtracker[i].guild }, (err, res) => {
                 if (err) return console.log(err)
 
