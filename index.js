@@ -20,7 +20,7 @@ client.login(client.config.token);
 
 var guildwithwordtracker = [];
 
-setTimeout(() => {
+setTimeout(async () => {
     client.guilds.cache.forEach(async (guild) => {
         let guildset = await guildSettings.findOne({ guildID: guild.id})
         let parsed = JSON.parse(JSON.stringify(guildset))
@@ -38,10 +38,9 @@ setTimeout(() => {
 
     console.log(guildwithwordtracker)
 
-    setInterval(() => {
+    setInterval(async () => {
         var descrip;
         for (let i = 0; i < guildwithwordtracker.length; i++) {
-
             totalWords.find({ guildID: guildwithwordtracker[i].guild }, (err, res) => {
                 if (err) return console.log(err)
 
@@ -64,17 +63,17 @@ setTimeout(() => {
                 }
                 var time = `Last updated at ${hours}:${d.getMinutes()}`
 
-                var totalwordcount = await totalWords.countDocuments({guildID: guild.id}).exec();
-
-                const embed = new MessageEmbed()
+                totalWords.countDocuments({guildID: guildwithwordtracker[i].guild}, (err, count) => {
+                    const embed = new MessageEmbed()
                     .setColor('#0099ff')
                     .setTitle(`Top 10 most said words in ${client.guilds.cache.get(guildwithwordtracker[i].guild).name}`)
                     .setDescription(descrip.replace(/undefined/g, ""))
                     .setThumbnail(`${client.guilds.cache.get(guildwithwordtracker[i].guild).iconURL() || 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.onlinewebfonts.com%2Fsvg%2Fimg_331373.png&f=1&nofb=1'}`)
                     .setTimestamp()
-                    .setFooter(`Total of ${totalwordcount} words`);
+                    .setFooter(`Total of ${count} words`);
 
                     channel.messages.fetch(guildwithwordtracker[i].message).then(msg => msg.edit({ embeds:[embed]}))
+                })
 
             }).sort({ count: -1 })
         } 
