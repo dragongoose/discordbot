@@ -10,11 +10,13 @@ client.on("messageCreate", async (message) => {
 
 
     for (let i = 0; i < words.length; i++) {
+        if(words[i] === '') return;
         try {
             const allthewords = await totalWords.find({ guildID: message.guild.id, word: words[i] });
 
             if (allthewords.length === 0) {
                 //console.log(`Word ${words[i]} has never been said!`)
+
 
                 var newword = new totalWords({
                     guildID: message.guild.id,

@@ -3,7 +3,7 @@ const config = require("../../config.json");
 const guildSettings = require("../../schema/guildsettings.js")
 
 module.exports = {
-    name: "wordboardAUTO",
+    name: "autowordboard",
     description: "Sets up a message that updates every 60 seconds for the top 10 most said words.",
     //aliases: ['repeat'],
     /**
@@ -13,17 +13,56 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, msg, args) => {
+        var channel;
+        try {
+            channel = msg.guild.channels.cache.get(args[0])
+        } catch(e) {
+            msg.channel.send('Couldnt find the channel')
+            console.log(e)
+        }
 
-        const allsettings = await totalWords.findOne({ guildID: message.guild.id });
+        var setup = await channel.send('Setting up...')
 
-        console.log(allsettings)
-        if(allsettings === null){
+        const allsettings = await guildSettings.findOne({ guildID: msg.guild.id });
+
+        if (allsettings === null) {
             var emptysettings = new guildSettings({
-                guildID: message.guild.id,
-                settingsJson: {},
+                guildID: msg.guild.id,
+                settingsJson: {
+                    wordboard: {
+                        channel: args[0],
+                        message: setup.id
+                    }
+                },
             })
             await emptysettings.save();
+            msg.channel.send('Set')
         }
+
+        guildSettings.findOne({ guildID: msg.guild.id })
+        .then(set => {
+            var parsed = JSON.parse(JSON.stringify(set))
+
+            var oldsettings = parsed.settingsJson
+            var newsettings = oldsettings
+
+            console.log(newsettings)
+
+            newsettings.wordboard.channel = args[0]
+            newsettings.wordboard.message = setup.id
+            
+            set.guildID = msg.guild.id;
+            set.settingsJson = newsettings
+
+            set.markModified('guildID');
+            set.markModified('settingsJson');
+
+            set.save((err) => {
+                console.log(err)
+            });
+            msg.channel.send('Updated!')
+            
+        });
 
     },
 };
