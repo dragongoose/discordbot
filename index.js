@@ -36,6 +36,8 @@ setTimeout(() => {
         }
     })
 
+    console.log(guildwithwordtracker)
+
     setInterval(() => {
         var descrip;
         for (let i = 0; i < guildwithwordtracker.length; i++) {
