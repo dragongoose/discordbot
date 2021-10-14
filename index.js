@@ -73,6 +73,7 @@ setTimeout(async () => {
                     .setFooter(`Total of ${count} words`);
 
                     channel.messages.fetch(guildwithwordtracker[i].message).then(msg => msg.edit({ embeds:[embed]}))
+                    descrip = ''
                 })
 
             }).sort({ count: -1 })
@@ -80,6 +81,3 @@ setTimeout(async () => {
     }, 60000)
 
 }, 5000)
-
-
-
