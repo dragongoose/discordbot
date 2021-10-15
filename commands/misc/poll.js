@@ -4,7 +4,7 @@ const config = require("../../config.json");
 module.exports = {
     name: "poll",
     description: "creates a poll",
-    //aliases: ['repeat'],
+    aliases: ['vote'],
     /**
      *
      * @param {Client} client
@@ -44,7 +44,7 @@ module.exports = {
                 for (var i = 0; i < optionsList.length; i++) {
                     reactionArray[i] = await message.react(emojiList[i]);
                 }
-            });
+        });
 
     },
 };
