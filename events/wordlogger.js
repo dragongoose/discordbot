@@ -40,7 +40,7 @@ client.on("messageCreate", async (message) => {
                         user.markModified('word');
                         user.markModified('count');
 
-                        user.save(err => console.log(err));
+                        user.save();
                     });
             }
 
