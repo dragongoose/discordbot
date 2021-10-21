@@ -9,13 +9,13 @@ Once in the project diretory, you are going to make a config file.
 Once you create config.json, you are going to need to add these entries
 
 ```json
-}
+{
    "token": "DISCORD TOKEN",
     "mongooseConnectionString": "MONGODBURL",
     "prefix": "PREFIX",
     "openweathermap": "OPEN WEATHER MAP TOKEN",
     "ownerid": "OWNERID"
-  }
+}
 
 ```
 
