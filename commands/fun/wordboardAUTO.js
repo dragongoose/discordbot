@@ -14,12 +14,15 @@ module.exports = {
      */
     run: async (client, msg, args) => {
         var channel;
+        if (!msg.member.permissions.has('MANAGE_GUILD')) return msg.reply('No Perms!');
         try {
             channel = msg.guild.channels.cache.get(args[0])
         } catch(e) {
             msg.channel.send('Couldnt find the channel')
             console.log(e)
         }
+
+        if(channel === undefined) return msg.channel.send('Couldnt find the channel');
 
         var setup = await channel.send('Setting up...')
 
