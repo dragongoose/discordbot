@@ -18,12 +18,19 @@ module.exports = {
         const guildstorage = await guildSettings.find({ guildID: msg.guild.id })
         const parsed = JSON.parse(JSON.stringify(guildstorage))
 
-        console.log(parsed[0].settingsJson)
-
         var descrip;
+        var wordboard;
+        var joinprotection;
 
-        var wordboard = parsed[0].settingsJson.wordboard ? 'wordboard: 🟢 Fully setup \n' : 'wordboard: 🔴 Not setup \n'
-        var joinprotection = parsed[0].settingsJson.joinprotection ? 'join protection: 🟢 Fully setup \n' : "join protection: 🔴 Not setup \n"
+        if(parsed[0] === undefined || parsed[0].settingsJson === undefined){
+            wordboard = 'wordboard: 🔴 Not setup \n'
+            joinprotection = 'join protection: 🔴 Not setup \n'
+        } else {
+            wordboard = parsed[0].settingsJson.wordboard ? 'wordboard: 🟢 Fully setup \n' : 'wordboard: 🔴 Not setup \n'
+            joinprotection = parsed[0].settingsJson.joinprotection ? 'join protection: 🟢 Fully setup \n' : "join protection: 🔴 Not setup \n"
+        }
+
+
 
         descrip += wordboard
         descrip += joinprotection
