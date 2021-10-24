@@ -12,7 +12,7 @@ module.exports = {
      */
     run: async (client, msg, args) => {
 
-        if (!msg.member.permissions.has('ADMINISTRATOR')) return msg.reply('No Perms!');
+        if (!msg.member.permissions.has('MANAGE_MESSAGES')) return msg.reply('No Perms!');
 
         var ammount = args[0]
 
