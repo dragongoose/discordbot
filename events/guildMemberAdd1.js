@@ -3,6 +3,10 @@ const { MessageEmbed } = require('discord.js');
 const guildSettings = require("../schema/guildsettings.js")
 const mongoose = require('mongoose');
 
+Array.prototype.diff = function(a) {
+    return this.filter(function(i) {return a.indexOf(i) < 0;});
+};
+
 client.on('guildMemberAdd', async (member) => {
     if (member.user.bot) return; //ignore bots
 
@@ -14,8 +18,11 @@ client.on('guildMemberAdd', async (member) => {
     //get the cached invites for the server the member joined.
     const cachedInvites = client.invites.get(member.guild.id)
     var oldcxu = {};
+    var oldinvarr = [];
+    var newinvarr = [];
     cachedInvites.forEach(u => {
         oldcxu[u.code] = u.uses
+        oldinvarr.push(u.code)
     })
 
 
@@ -30,6 +37,7 @@ client.on('guildMemberAdd', async (member) => {
 
     newInvites.forEach(u => {
         newcxu[u.code] = u.uses
+        newinvarr.push(u.code)
     })
 
     newInvites.forEach(u => {
@@ -41,6 +49,8 @@ client.on('guildMemberAdd', async (member) => {
     console.log(newcxu)
 
     var usedinvite;
+
+    var difference = oldinvarr.diff(newinvarr)
 
     for (let i = 0; i < invites.length; i++) {
         var cached = oldcxu[invites[i]]
@@ -65,14 +75,9 @@ client.on('guildMemberAdd', async (member) => {
     }
 
     if (usedinvite === undefined) {
-        usedinvite = {
-            code: 'unknown',
-            uses: 'unknown',
-            maxUses: 'unknowm',
-            inviter: {
-                id: 'unknown'
-            }
-        }
+        usedinvite = cachedInvites.get(String(difference))
+        console.log(cachedInvites)
+        console.log(usedinvite)
     }
 
     var newarr = (function (arr) {
@@ -104,7 +109,7 @@ client.on('guildMemberAdd', async (member) => {
     }
 
 
-    console.log(usedinvite)
+    //console.log(usedinvite)
 
     const { code, uses, inviter, channel } = usedinvite;
 
