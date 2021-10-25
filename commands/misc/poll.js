@@ -39,11 +39,15 @@ module.exports = {
         msg.delete();
 
         msg.channel.send({ embeds: [pollembed]})
-            .then(async function (message) {
-                var reactionArray = [];
-                for (var i = 0; i < optionsList.length; i++) {
-                    reactionArray[i] = await message.react(emojiList[i]);
+            .then(async (message) => {
+                if(options){
+                    for (var i = 0; i < optionsList.length; i++) {
+                        await message.react(emojiList[i]);
+                    }
                 }
+                await message.react('👍')
+                await message.react('👎')
+
         });
 
     },
