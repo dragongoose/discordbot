@@ -24,15 +24,14 @@ setTimeout(async () => {
     client.guilds.cache.forEach(async (guild) => {
         let guildset = await guildSettings.findOne({ guildID: guild.id})
         let parsed = JSON.parse(JSON.stringify(guildset))
-        if(guildset != null){
-            if(parsed.settingsJson.wordboard.channel){
+        if(guildset != null && parsed.settingsJson.wordboard && parsed.settingsJson.wordboard.channel){
                 var json = {
                     guild: guild.id,
                     channel: parsed.settingsJson.wordboard.channel,
                     message: parsed.settingsJson.wordboard.message
                 }
                 guildwithwordtracker.push(json)
-            }
+
         }
     })
 
