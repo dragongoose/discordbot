@@ -136,6 +136,7 @@ client.on('guildMemberAdd', async (member) => {
 
     let everyoneRole = member.guild.roles.cache.find(r => r.name === '@everyone');
     const inviterrole = member.guild.roles.cache.get(parsed.settingsJson.joinprotection.inviterrole)
+    const memberrole = member.guild.roles.cache.get(parsed.settingsJson.joinprotection.member)
     const interviewerrole = member.guild.roles.cache.get(parsed.settingsJson.joinprotection.interviewer)
     const newkidrole = member.guild.roles.cache.get(parsed.settingsJson.joinprotection.newkid)
 
@@ -181,9 +182,10 @@ client.on('guildMemberAdd', async (member) => {
     const msg = await interviewchannel.send({ embeds: [interviewembed] })
     interviewchannel.send(`||<@&889156206143340574> <@&889008732342738945> ||`)
     await msg.react('✅')
-    await msg.react('❌')
+    await msg.react('🦵')
+    await msg.react('🔨')
 
-    const filter = (reaction, user) => (reaction.emoji.name === '✅' || reaction.emoji.name === '❌') && (user.id === member.guild.ownerId || member.id);
+    const filter = (reaction, user) => (reaction.emoji.name === '✅' || reaction.emoji.name === '🦵') || reaction.emoji.name === ('🔨') && (user.id === member.guild.ownerId || member.id);
 
 
     const collector = msg.createReactionCollector({ filter, time: 604800000 });
@@ -209,7 +211,7 @@ client.on('guildMemberAdd', async (member) => {
 
                     msg.channel.delete()
                     break;
-                case '❌':
+                case '🦵':
                     try {
                         member.kick()
                         guildinviter.roles.remove(interviewerrole);
@@ -220,6 +222,16 @@ client.on('guildMemberAdd', async (member) => {
                     logChannel.send(`<@${member.id}> was declined and kicked by <@${user.id}>`).catch(e => console.log('error'))
                     msg.channel.delete()
                     break;
+                case '🔨':
+                    try{
+                        member.ban()                 
+                        guildinviter.roles.remove(interviewerrole);
+                        owner.roles.remove(interviewerrole);
+                        logChannel.send(`<@${member.id}> was declined and banned by <@${user.id}>`).catch(e => console.log('error'))
+                        msg.channel.delete()
+                    } catch (e) {
+                        console.log(e)
+                    }
             }
         }
     });
