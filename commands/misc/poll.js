@@ -20,15 +20,18 @@ module.exports = {
         var time = newargs[4]
 
         var emojiList = ['1⃣', '2⃣', '3⃣', '4⃣', '5⃣', '6⃣', '7⃣', '8⃣', '9⃣', '🔟'];
-        var optionsList = options.split(",");
-        if (optionsList.length >= 10) {
-            return msg.channel.send('Cannot have more than 10 poll options!')
+        if(options) var optionsList = options.split(",");
+        if (options && optionsList.length >= emojiList.length + 1) {
+            return msg.channel.send(`Cannot have more than ${emojiList.length + 1} poll options!`)
         }
 
         var optionsText = "";
-        for (var i = 0; i < optionsList.length; i++) {
-            optionsText += emojiList[i] + " " + optionsList[i] + "\n";
+        if(options){
+            for (var i = 0; i < optionsList.length; i++) {
+                optionsText += emojiList[i] + " " + optionsList[i] + "\n";
+            }
         }
+
 
         const pollembed = new MessageEmbed()
             .setTitle(':bar_chart: ' + question)
@@ -44,10 +47,10 @@ module.exports = {
                     for (var i = 0; i < optionsList.length; i++) {
                         await message.react(emojiList[i]);
                     }
+                } else {
+                    await message.react('👍')
+                    await message.react('👎')
                 }
-                await message.react('👍')
-                await message.react('👎')
-
         });
 
     },
