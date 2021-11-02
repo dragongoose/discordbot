@@ -14,7 +14,7 @@ module.exports = {
     run: async (client, msg, args) => {
 
         try {
-            const res = await fetch('https://www.no-api-key.com/api/v1/animals/bear').then(response => response.json());
+            const res = await fetch('https://www.no-api-key.com/api/v2/animals/bear').then(response => response.json());
 
             const embed = new MessageEmbed()
                 .setColor('#0099ff')
