@@ -23,7 +23,7 @@ module.exports = {
 
         
         
-        member.ban(reason)
+        member.ban({ reason: reason})
         .then(msg.channel.send(`banned ${member.user.tag}`))
         .catch(err => console.log(err));
 
