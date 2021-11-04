@@ -17,6 +17,7 @@ module.exports = {
         const message = await msg.channel.messages.fetch(msg.reference.messageId)
         if(!message) return msg.channel.send("I couldn't find the messsage")
 
+        msg.delete()
         message.reply(args.join(" "))
     },
 };
