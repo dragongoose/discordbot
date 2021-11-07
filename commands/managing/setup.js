@@ -21,19 +21,23 @@ module.exports = {
         var descrip;
         var wordboard;
         var joinprotection;
+        var starboard
 
         if(parsed[0] === undefined || parsed[0].settingsJson === undefined){
             wordboard = 'wordboard: 🔴 Not setup \n'
             joinprotection = 'join protection: 🔴 Not setup \n'
+            starboard = "starboard: 🔴 Not setup \n"
         } else {
             wordboard = parsed[0].settingsJson.wordboard ? 'wordboard: 🟢 Fully setup \n' : 'wordboard: 🔴 Not setup \n'
             joinprotection = parsed[0].settingsJson.joinprotection ? 'join protection: 🟢 Fully setup \n' : "join protection: 🔴 Not setup \n"
+            starboard = parsed[0].settingsJson.starboard ? 'starboard: 🟢 Fully setup \n' : "starboard: 🔴 Not setup \n"
         }
 
 
 
         descrip += wordboard
         descrip += joinprotection
+        descrip += starboard
 
         const embed = new MessageEmbed()
         .setColor('#808080')
