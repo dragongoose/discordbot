@@ -28,7 +28,7 @@ module.exports = {
 
                 // Basic embed
                 var embed = new MessageEmbed()
-                    .setColor('#0099ff')
+                    .setColor('#808080')
                     .setTitle('🏓 Latency')
                     .addFields(
                         { name: 'Bot Latency', value: '```ini\n' + '[' + ping + 'ms' + ']' + '\n```', inline: true },
