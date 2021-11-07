@@ -17,10 +17,11 @@ module.exports = {
         const res = await fetch('https://www.no-api-key.com/api/v2/facts').then(response => response.json());
 
 		const embed = new MessageEmbed()
-			.setColor('#0099ff')
 			.setTitle('true fact.')
 			.setDescription(res.fact)
-			.setFooter(`fact requested by ${msg.member.user.tag}`)
+            .setTimestamp()
+            .setColor('#808080')
+            .setFooter(msg.author.tag, msg.author.avatarURL());
 
 		msg.channel.send({ embeds: [embed] })
 

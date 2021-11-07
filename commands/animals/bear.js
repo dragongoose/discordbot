@@ -17,11 +17,12 @@ module.exports = {
             const res = await fetch('https://www.no-api-key.com/api/v2/animals/bear').then(response => response.json());
 
             const embed = new MessageEmbed()
-                .setColor('#0099ff')
                 .setTitle('bear')
                 .setDescription(res.fact)
                 .setImage(res.image)
-                .setFooter(`bear requested by ${msg.member.user.tag}`)
+                .setTimestamp()
+                .setColor('#808080')
+                .setFooter(msg.author.tag, msg.author.avatarURL());
 
             msg.channel.send({ embeds: [embed]})
         } catch (e) {

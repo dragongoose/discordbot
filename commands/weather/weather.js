@@ -110,10 +110,8 @@ module.exports = {
                     
     
                    const weatherEmbed = new MessageEmbed()
-                   .setColor('#0099ff')
                    .setTitle(`${parsedWeather.weather[0].description} in ${parsedWeather.name}, ${parsedWeather.sys.country}`)
                    .setThumbnail(`https://openweathermap.org/img/wn/${parsedWeather.weather[0].icon}@2x.png`)
-                   .setFooter('Powered by OpenWeatherMap')
                    .addFields(
                        { name: 'Temperature  ', value: ` ${Math.round(parsedWeather.main.temp)}°F`, inline: true } ,
                        { name: 'Max Temp  ', value: `${Math.round(parsedWeather.main.temp_max)}°F`, inline: true  },
@@ -125,6 +123,9 @@ module.exports = {
                        { name: 'Wind Direction  ', value: `${parsedWeather.wind.deg}° ${degToCompass(parsedWeather.wind.deg)}`, inline: true },
                        { name: '‏‏‎ ‎', value: '‏‏‎ ‎', inline: true}
                    )
+                   .setTimestamp()
+                   .setColor('#808080')
+                   .setFooter(msg.author.tag, msg.author.avatarURL());
     
                
     

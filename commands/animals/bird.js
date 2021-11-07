@@ -17,11 +17,12 @@ module.exports = {
             const res = await fetch('https://some-random-api.ml/animal/bird').then(response => response.json());
 
             const embed = new MessageEmbed()
-                .setColor('#0099ff')
                 .setTitle('bird')
                 .setDescription(res.fact)
                 .setImage(res.image)
-                .setFooter(`bird requested by ${msg.member.user.tag}`)
+                .setTimestamp()
+                .setColor('#808080')
+                .setFooter(msg.author.tag, msg.author.avatarURL());
 
             msg.channel.send({ embeds: [embed]})
         } catch (e) {

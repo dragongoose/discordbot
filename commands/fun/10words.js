@@ -32,13 +32,13 @@ module.exports = {
                 }
 
                 const embed = new MessageEmbed()
-                    .setColor('#0099ff')
                     .setTitle(`Top 10 most said words in ${msg.guild.name}`)
                     .setDescription(descrip.replace(/undefined/g, ""))
                     .setThumbnail(`${msg.guild.iconURL() || 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.onlinewebfonts.com%2Fsvg%2Fimg_331373.png&f=1&nofb=1'}`)
                     .setTimestamp()
+                    .setColor('#808080')
                     .setFooter(msg.author.tag, msg.author.avatarURL());
-
+                    
                 msg.channel.send({ embeds: [embed] })
 
             }).sort({ count: -1 })
