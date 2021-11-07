@@ -3,9 +3,7 @@ const mongoose = require("mongoose");
 const guildSettings = require("./schema/guildsettings.js")
 const totalWords = require("./schema/totalwords.js")
 
-const client = new Client({
-    intents: 32767,
-});
+const client = new Client({ intents: 32767, partials: ['MESSAGE', 'CHANNEL', 'REACTION'] });
 module.exports = client;
 
 // Global Variables
