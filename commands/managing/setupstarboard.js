@@ -16,6 +16,7 @@ module.exports = {
 
         var channel = client.channels.cache.get(args[0])
         if(!channel) return msg.reply("I couldn't find the channel")
+        if (!msg.member.permissions.has('MANAGE_GUILD')) return msg.reply('No Perms!');
 
         guildSettings.findOne({ guildID: msg.guild.id })
           .then(set => {
