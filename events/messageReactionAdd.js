@@ -25,6 +25,8 @@ client.on('messageReactionAdd', async (reaction, user) => {
     .setColor('#808080')
     .setFooter(message.id);
 
+    if(message.reactions.cache.get("⭐").count < 3) return;
+
     async function main(starboard) {
         //check to see if there is a existing starboard post
         var existingstarboard;
