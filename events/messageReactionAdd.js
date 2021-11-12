@@ -21,7 +21,7 @@ client.on('messageReactionAdd', async (reaction, user) => {
 
     const embed = new MessageEmbed()
     .setAuthor(message.author.username + message.author.discriminator, message.author.avatarURL())
-    .setDescription(`[sauce](${message.url}) \n ${message.content}`)
+    .setDescription(`[Source](${message.url}) \n ${message.content}`)
     .setColor('#808080')
     .setFooter(message.id);
 
