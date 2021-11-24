@@ -14,7 +14,7 @@ module.exports = {
      */
     run: async (client, msg, args) => {
         
-        if([753237899951997049, 870824696319475742].includes(msg.guild.id)) {
+        if(["753237899951997049", "870824696319475742"].includes(msg.guild.id)) {
             return msg.reply('This guild has been banned from using this command.\nReason: Abuse')
         }
 
