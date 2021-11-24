@@ -13,10 +13,6 @@ module.exports = {
      * @param {String[]} args
      */
     run: async (client, msg, args) => {
-        
-        if(["753237899951997049", "870824696319475742"].includes(msg.guild.id)) {
-            return msg.reply('This guild has been banned from using this command.\nReason: Abuse')
-        }
 
         const embed = new MessageEmbed()
             .setTitle(`Feedback from ${msg.author.tag}`)
