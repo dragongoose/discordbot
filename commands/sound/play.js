@@ -15,6 +15,7 @@ module.exports = {
 
         if(!msg.member.voice.channel) return msg.channel.send('You must be in a voice channel.')
             client.distube.play(msg, args.join(' '))
+            msg.react('👍')
 
     },
 };

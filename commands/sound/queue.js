@@ -42,5 +42,6 @@ module.exports = {
                .setTimestamp();
        
                msg.channel.send({ embeds: [embed] })
+               msg.react('👍')
     }
 };

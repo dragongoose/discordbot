@@ -2,8 +2,9 @@ const { Client, MessageEmbed } = require("discord.js");
 const DisTube = require("distube");
 
 module.exports = {
-    name: "time",
-    //aliases: ['p'],
+    name: "shuffle",
+    description: "shuffles the queue",
+    aliases: ['mix'],
     /**
      *
      * @param {Client} client
@@ -13,11 +14,11 @@ module.exports = {
     run: async (client, msg, args) => {
 
         let queue = client.distube.getQueue(msg);
-        if (queue === undefined) return msg.channel.send('The queue is empty!')
 
-        console.log(queue)
+        if(!queue) return msg.channel.send('Nothing is playing!')
 
-        console.log(queue.songs[0].currentTime, queue.songs[0].duration)
-
+        client.distube.shuffle(msg)
+        msg.react('👍')
+        
     },
 };

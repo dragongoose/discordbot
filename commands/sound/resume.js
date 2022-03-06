@@ -17,6 +17,7 @@ module.exports = {
         if (queue === undefined) return msg.channel.send('The queue is empty!')
 
         client.distube.resume(msg)
+        msg.react('👍')
         
     },
 };
