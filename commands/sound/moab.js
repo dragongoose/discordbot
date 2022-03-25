@@ -34,7 +34,7 @@ module.exports = {
                         newChannel.send('https://tenor.com/view/explosion-mushroom-cloud-atomic-bomb-bomb-boom-gif-4464831')
                         msg.channel.overwritePermissions([
                             {
-                                id: guild.id,
+                                id: interaction.guild.id,
                                 deny: [Permissions.FLAGS.VIEW_CHANNEL],
                             },
                             {
@@ -42,6 +42,8 @@ module.exports = {
                                 allow: [Permissions.FLAGS.VIEW_CHANNEL],
                             },
                         ])
+                        message.delete()
+                        msg.delete()
                         break;
                     case '❌':
                         message.delete()
