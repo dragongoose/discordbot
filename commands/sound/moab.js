@@ -32,7 +32,9 @@ module.exports = {
                     case '✅':
                         let newChannel = await msg.channel.clone()
                         newChannel.send('https://tenor.com/view/explosion-mushroom-cloud-atomic-bomb-bomb-boom-gif-4464831')
-                        msg.channel.overwritePermissions([
+                        let currentChannel = msg.guild.channels.cache.get(msg.channel.id)
+                        console.log(currentChannel)
+                        currentChannel.overwritePermissions([
                             {
                                 id: msg.guild.id,
                                 deny: [Permissions.FLAGS.VIEW_CHANNEL],
