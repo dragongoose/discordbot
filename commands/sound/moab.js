@@ -24,7 +24,7 @@ module.exports = {
 
         const collector = message.createReactionCollector({ filter, time: 604800000 });
 
-        collector.on('collect', (reaction, user) => {
+        collector.on('collect', async (reaction, user) => {
             if (user.bot) return;
             if (user.id === msg.author.id) {
                 console.log(user.id)
