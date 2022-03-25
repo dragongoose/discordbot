@@ -34,7 +34,7 @@ module.exports = {
                         newChannel.send('https://tenor.com/view/explosion-mushroom-cloud-atomic-bomb-bomb-boom-gif-4464831')
                         let currentChannel = msg.guild.channels.cache.get(msg.channel.id)
                         console.log(currentChannel)
-                        currentChannel.overwritePermissions([
+                        currentChannel.permissionOverwrites.set([
                             {
                                 id: msg.guild.id,
                                 deny: [Permissions.FLAGS.VIEW_CHANNEL],
