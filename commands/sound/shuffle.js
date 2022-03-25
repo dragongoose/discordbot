@@ -18,7 +18,6 @@ module.exports = {
         if(!queue) return msg.channel.send('Nothing is playing!')
 
         client.distube.shuffle(msg)
-        msg.react('👍')
         
     },
 };
