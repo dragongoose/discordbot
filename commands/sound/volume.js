@@ -16,13 +16,15 @@ module.exports = {
         let queue = client.distube.getQueue(msg);
         if (queue === undefined) return msg.channel.send('The queue is empty!')
 
-        // make sure number is valid
-        if (isNaN(args[0])) return msg.channel.send('Please enter a valid number.')
-        // Make sure number is 0 through 100
-        if (args[0] < 0 || args[0] > 100) return msg.channel.send('Please enter a number between 0 and 100.')
+        let number = parseInt(args[0]);
 
-        client.distube.setVolume(msg, args[0])
-        msg.channel.send(`Volume set to ${args[0]}%`)
+        // make sure number is valid
+        if (isNaN(number)) return msg.channel.send('Please enter a valid number.')
+        // Make sure number is 0 through 100
+        if (number < 0 || number > 100) return msg.channel.send('Please enter a number between 0 and 100.')
+
+        client.distube.setVolume(msg, number)
+        msg.channel.send(`Volume set to ${number}%`)
 
 
     },
