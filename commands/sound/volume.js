@@ -21,8 +21,7 @@ module.exports = {
         // Make sure number is 0 through 100
         if (args[0] < 0 || args[0] > 100) return msg.channel.send('Please enter a number between 0 and 100.')
 
-
-        client.distube.setVolume(args[0])
+        client.distube.setVolume(msg, args[0])
         msg.channel.send(`Volume set to ${args[0]}%`)
 
 
