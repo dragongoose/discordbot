@@ -2,9 +2,9 @@ const { Client, MessageEmbed } = require("discord.js");
 const DisTube = require("distube");
 
 module.exports = {
-    name: "play",
-    description: "plays song",
-    aliases: ['p'],
+    name: "filter",
+    description: "set the filter for the queue",
+    //aliases: ['p'],
     /**
      *
      * @param {Client} client
