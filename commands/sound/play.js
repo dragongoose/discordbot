@@ -13,9 +13,8 @@ module.exports = {
      */
     run: async (client, msg, args) => {
 
-        if(!msg.member.voice.channel) return msg.channel.send('You must be in a voice channel.')
-            client.distube.play(msg, args.join(' '))
-            msg.react('👍')
+        if (!msg.member.voice.channel) return msg.channel.send('You must be in a voice channel.')
+        client.distube.play(msg, args.join(' '))
 
     },
 };
