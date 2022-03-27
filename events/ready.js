@@ -39,7 +39,7 @@ client.on("ready", () => {
                     { name: 'Duration', value: song.formattedDuration, inline: true }
                 )
                 .setColor(0xD53C55) // Green: 0x00AE86
-                .setFooter('hi :3')
+                .setFooter({ text:'hi :3' })
                 .setTimestamp();
 
             queue.textChannel.send({ embeds: [embed] }).then(msg => {
