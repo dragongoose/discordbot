@@ -7,13 +7,17 @@ and turn them into different pages that can be changed by
 a reaction lister as used in guildMemberAdd event.
 */
 
-//the total argument will be a array includiding all of the pages.
-//timeout will be a string.
-const main = async (total, msg, timeout) => {
+/**
+ * 
+ * @param {*} pages MessageEmbed's in a array of what each page should look like.
+ * @param {*} msg discord.js Message object.
+ * @returns 
+ */
+const main = async (pages, msg) => {
     return new Promise( async(resolve, reject) => {
 
         try{
-            const message = await msg.channel.send({embeds:[total[0]]})
+            const message = await msg.channel.send({embeds:[pages[0]]})
             await message.react('⬅')
             await message.react('➡')
         
@@ -33,7 +37,7 @@ const main = async (total, msg, timeout) => {
                             if(currentpage != 0){
                                 const run = async () => {
                                     currentpage = currentpage - 1
-                                    message.edit({ embeds:[total[currentpage]]})
+                                    message.edit({ embeds:[pages[currentpage]]})
                                     for(const reaction of message.reactions.cache.values()){
                                         await reaction.users.remove(user.id)
                                     }
@@ -44,10 +48,10 @@ const main = async (total, msg, timeout) => {
                             }
                             break;
                         case '➡':
-                            if(currentpage != total.length - 1){
+                            if(currentpage != pages.length - 1){
                                const run = async () => {
                                     currentpage = currentpage + 1
-                                    message.edit({ embeds:[total[currentpage]]})
+                                    message.edit({ embeds:[pages[currentpage]]})
                                     for(const reaction of message.reactions.cache.values()){
                                         await reaction.users.remove(user.id)
                                     }
