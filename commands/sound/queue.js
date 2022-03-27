@@ -46,7 +46,6 @@ module.exports = {
             .setTitle('**Queue:**')
                 .setDescription(`\`\`\`sql\n${chunks[i].join("\n")}\`\`\``)
                 .setColor(0xD53C55) // Green: 0x00AE86
-                .setFooter({ text: 'hi :3' })
                 .setTimestamp();
             pages.push(embed)
         }
