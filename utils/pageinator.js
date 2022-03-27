@@ -1,4 +1,5 @@
 const client = require("../index");
+const { MessageActionRow, MessageButton } = require('discord.js');
 
 /*
 This script will take multiple discord MessageEmbed variables
