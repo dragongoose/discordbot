@@ -13,13 +13,7 @@ const globPromise = promisify(glob);
 module.exports = async (client) => {
     // Commands
     const commandFiles = await globPromise(`${process.cwd()}/commands/**/*.js`);
-    var helpcommandcontent = `My commands: \n`
-    for(let i = 0; i < commandFiles.length; i++){
-        var file = require(commandFiles[i])
-
-        var commandhelp = `**${file.name}**: ${file.description} \n`
-        helpcommandcontent += commandhelp
-    }
+    var helpcommandcontent = {}
 
     commandFiles.map((value) => {
         const file = require(value);
@@ -30,6 +24,11 @@ module.exports = async (client) => {
             const properties = { directory, ...file };
             client.commands.set(file.name, properties);
 
+            if(!helpcommandcontent[directory]) helpcommandcontent[directory] = {}
+
+            helpcommandcontent[directory][file.name] = file.description
+
+
             console.log(chalk.cyan('[!] Loaded command '), chalk.green(file.name), chalk.red(' from '), chalk.green(properties.directory))
         }
     });
@@ -38,10 +37,22 @@ module.exports = async (client) => {
     var helpcommand = {};
     helpcommand.name = 'help'
     helpcommand.description = "Shows the bot's every command."
+
     helpcommand.run = async (client, message, args) => {
-        message.member.send({ content: helpcommandcontent })
-        .then(() => { message.react('✅'); })
-        .catch((e) => {message.reply('I couldnt DM you!')})
+
+        let helpString = "";
+
+        //loop thorugh each element in helpcommandcontent
+        for (var [key, value] of Object.entries(helpcommandcontent)) {
+            helpString += `**${key}**\n`
+            for (var [key2, value2] of Object.entries(value)) {
+                helpString += `└ ${key2}: ${value2}\n`
+            }
+        }
+
+        message.member.send({ content: helpString })
+            .then(() => { message.react('✅'); })
+            .catch((e) => {message.reply('I couldnt DM you!')})
         
     }
     client.commands.set('help', helpcommand);
