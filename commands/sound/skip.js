@@ -18,6 +18,10 @@ module.exports = {
         let queue = client.distube.getQueue(msg);
         if (queue === undefined) return msg.channel.send('The queue is empty!')
 
+        if(queue.songs.length === 1) {
+            return msg.channel.send("Unable to skip, there are no songs after!")
+        }
+
         client.distube.skip(msg)
 
 
