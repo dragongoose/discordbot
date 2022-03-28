@@ -17,6 +17,11 @@ const main = async (pages, msg) => {
     return new Promise( async(resolve, reject) => {
 
         try{
+            console.log(pages.length)
+            if(pages.length === 0){
+                msg.channel.send(pages[0])
+                resolve()
+            }
             const message = await msg.channel.send({embeds:[pages[0]]})
             await message.react('⬅')
             await message.react('➡')
