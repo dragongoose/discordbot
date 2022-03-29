@@ -114,6 +114,8 @@ client.on("ready", () => {
         .then(invite => client.invites.set(guild.id, invite))
         .catch(error => console.log(error));
     }
+
+
 });
 
 

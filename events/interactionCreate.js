@@ -10,12 +10,6 @@ client.on("interactionCreate", async (interaction) => {
     const cmd = client.slashCommands.get(interaction.commandName);
     if (!cmd) return interaction.followUp({ content: "An error has occured " });
 
-    // prevent commands from running if initial setup has not been ran.
-    const guildsettings = await guildSettings.findOne({ guildID: interaction.guild.id });
-    const parsed = JSON.parse(JSON.stringify(guildsettings));
-    if (cmd.name != 'setup' && !parsed) return await interaction.editReply({ content: "You must setup the bot before using it. Please use `/setup`"})
-
-
     const argsJson = {}
     var cur;
 
