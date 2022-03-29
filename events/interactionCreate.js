@@ -1,33 +1,64 @@
+
 const client = require("../index");
+const guildSettings = require("../schema/guildsettings.js");
 
 client.on("interactionCreate", async (interaction) => {
-    // Slash Command Handling
-    if (interaction.isCommand()) {
-        await interaction.deferReply({ ephemeral: false }).catch(() => {});
+  // Slash Command Handling
+  if (interaction.isCommand()) {
+    await interaction.deferReply({ ephemeral: false }).catch(() => {});
 
-        const cmd = client.slashCommands.get(interaction.commandName);
-        if (!cmd)
-            return interaction.followUp({ content: "An error has occured " });
+    const cmd = client.slashCommands.get(interaction.commandName);
+    if (!cmd) return interaction.followUp({ content: "An error has occured " });
 
-        const args = [];
+    // prevent commands from running if initial setup has not been ran.
+    const guildsettings = await guildSettings.findOne({ guildID: interaction.guild.id });
+    const parsed = JSON.parse(JSON.stringify(guildsettings));
+    if (cmd.name != 'setup' && !parsed) return await interaction.editReply({ content: "You must setup the bot before using it. Please use `/setup`"})
 
-        for (let option of interaction.options.data) {
-            if (option.type === "SUB_COMMAND") {
-                if (option.name) args.push(option.name);
-                option.options?.forEach((x) => {
-                    if (x.value) args.push(x.value);
-                });
-            } else if (option.value) args.push(option.value);
-        }
-        interaction.member = interaction.guild.members.cache.get(interaction.user.id);
 
-        cmd.run(client, interaction, args);
+    const argsJson = {}
+    var cur;
+
+    for (let option of interaction.options.data) {
+     cur = option.name
+      if (option.type === "SUB_COMMAND") {
+        if (option.name) args.push(option.name);
+        option.options?.forEach((x) => {
+          if (x.value) argsJson[cur] = x.value
+        });
+      } else if (option.value) argsJson[cur] = option.value;
     }
+    interaction.member = interaction.guild.members.cache.get(
+      interaction.user.id
+    );
 
-    // Context Menu Handling
-    if (interaction.isContextMenu()) {
-        await interaction.deferReply({ ephemeral: false });
-        const command = client.slashCommands.get(interaction.commandName);
-        if (command) command.run(client, interaction);
-    }
+    cmd.run(client, interaction, argsJson);
+  }
+
+  // Context Menu Handling
+  if (interaction.isContextMenu()) {
+    await interaction.deferReply({ ephemeral: false });
+    const command = client.slashCommands.get(interaction.commandName);
+    if (command) command.run(client, interaction);
+  }
+
+  // Autocomplete Handling
+  if (interaction.isAutocomplete()) {
+    // gets the item to get choices for
+    const focusedOption = interaction.options.getFocused(true);
+
+    // Gets the autocomplete options from command file
+    const { autocomplete } = client.slashCommands.get(interaction.commandName);
+
+    //Put the choices into an array
+    const choices = autocomplete[focusedOption.name].choices
+
+    //Make the array into a ApplicationCommandOptionChoice object
+    const final = choices.map(choice => ({ name: choice, value: choice}))
+    
+    // Send the choices to the api
+    await interaction.respond(final)
+    
+  }
+	
 });

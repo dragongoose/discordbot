@@ -1,0 +1,33 @@
+module.exports = {
+  name: "settings",
+  description: "Change the bot's settings",
+  options: [
+    {
+      name: "name",
+      description: "description.",
+      type: "CHANNEL",
+    },
+    {
+      name: "name",
+      description: "description",
+      type: "STRING",
+      autocomplete: true,
+    },
+  ],
+  autocomplete: {
+    type: {
+      choices: ["Choice 1", "Choice 2", "Choice 3"],
+    },
+  },
+  type: "CHAT_INPUT",
+  /**
+   *
+   * @param {Client} client
+   * @param {CommandInteraction} interaction
+   * @param {String[]} args
+   */
+
+  run: async (client, interaction, args) => {
+
+  },
+};
