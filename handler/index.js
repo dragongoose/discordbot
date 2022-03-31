@@ -1,7 +1,6 @@
 const { glob } = require("glob");
 const { promisify } = require("util");
 const { Client } = require("discord.js");
-const bot = require("../index.js");
 const mongoose = require("mongoose");
 const chalk = require("chalk")
 
@@ -72,7 +71,6 @@ module.exports = async (client) => {
         const file = require(value);
         if (!file?.name) return;
         client.slashCommands.set(file.name, file);
-        console.log(file)
         console.log(chalk.cyan('[!] Loaded slash command '), chalk.green(file.name))
 
         if (["MESSAGE", "USER"].includes(file.type)) delete file.description;

@@ -38,8 +38,11 @@ module.exports = {
                     .setThumbnail(`${interaction.guild.iconURL() || 'https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Fcdn.onlinewebfonts.com%2Fsvg%2Fimg_331373.png&f=1&nofb=1'}`)
                     .setTimestamp()
                     .setColor('#808080')
-                    .setFooter({ text:interaction.user.tag, iconURL:interaction.user.avatarURL()});
-                    
+                    .setFooter({ text:`${interaction.user.tag}`, iconURL:`${interaction.user.avatarURL()}`});
+
+                    //set the footer as the users username and avatar
+
+
                 interaction.followUp({ embeds: [embed] })
 
             }).sort({ count: -1 })

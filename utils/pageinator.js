@@ -17,12 +17,15 @@ const main = async (pages, msg) => {
     return new Promise( async(resolve, reject) => {
 
         try{
-            console.log(pages.length)
+            let firstPage = pages[0]
+            firstPage.footer = { text: `Page 1 of ${pages.length}` }
             if(pages.length === 0){
-                msg.channel.send(pages[0])
+                msg.channel.send(firstPage)
                 resolve()
             }
-            const message = await msg.channel.send({embeds:[pages[0]]})
+
+
+            const message = await msg.channel.send({embeds:[firstPage]})
             await message.react('⬅')
             await message.react('➡')
         
@@ -42,7 +45,9 @@ const main = async (pages, msg) => {
                             if(currentpage != 0){
                                 const run = async () => {
                                     currentpage = currentpage - 1
-                                    message.edit({ embeds:[pages[currentpage]]})
+                                    let page = pages[currentpage]
+                                    page.footer = {text: `Page ${currentpage + 1} of ${pages.length}`}
+                                    message.edit({ embeds:[page]})
                                     for(const reaction of message.reactions.cache.values()){
                                         await reaction.users.remove(user.id)
                                     }
@@ -56,7 +61,9 @@ const main = async (pages, msg) => {
                             if(currentpage != pages.length - 1){
                                const run = async () => {
                                     currentpage = currentpage + 1
-                                    message.edit({ embeds:[pages[currentpage]]})
+                                    let page = pages[currentpage]
+                                    page.footer = {text: `Page ${currentpage + 1} of ${pages.length}`}
+                                    message.edit({ embeds:[page]})
                                     for(const reaction of message.reactions.cache.values()){
                                         await reaction.users.remove(user.id)
                                     }

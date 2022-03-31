@@ -16,6 +16,7 @@ require("./handler")(client);
 
 client.login(client.config.token);
 
+
 var guildwithwordtracker = [];
 
 setTimeout(async () => {
