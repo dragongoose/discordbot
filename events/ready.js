@@ -5,7 +5,8 @@ const { MessageEmbed } = require('discord.js');
 client.distube = new distube.default(client, {
     plugins: [new SpotifyPlugin()],
     searchSongs: 10,
-    savePreviousSongs: true
+    savePreviousSongs: true,
+    youtubeDL: false
 })
 
 client.on("ready", () => {
